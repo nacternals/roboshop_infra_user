@@ -1,16 +1,26 @@
 ##################################
-# Terraform core files
+# Terraform core
 ##################################
 
 # Local .terraform directory
-.terraform/
+**/.terraform/*
 
-# Terraform state files
+# Terraform state files (local state - just in case)
 *.tfstate
 *.tfstate.*
+terraform.tfstate.backup
 
-# Crash log files
-crash.log
+##################################
+# Terraform variable files (IMPORTANT)
+##################################
+
+# All tfvars files (can contain secrets)
+*.tfvars
+*.tfvars.json
+*.auto.tfvars
+
+# If you want to keep example file
+!example.tfvars
 
 ##################################
 # Terraform plan files
@@ -18,9 +28,10 @@ crash.log
 
 *.tfplan
 plan.out
+*.plan
 
 ##################################
-# Override files (rarely used)
+# Override files
 ##################################
 
 override.tf
@@ -29,11 +40,18 @@ override.tf.json
 *_override.tf.json
 
 ##################################
-# Terraform CLI config
+# CLI config files
 ##################################
 
 .terraformrc
 terraform.rc
+
+##################################
+# Lock file (IMPORTANT)
+##################################
+
+# KEEP this file in Git for team projects
+# .terraform.lock.hcl
 
 ##################################
 # OS / IDE files
@@ -41,6 +59,8 @@ terraform.rc
 
 .DS_Store
 Thumbs.db
+
+# VS Code settings (optional — if you don't want to share)
 .vscode/
 
 ##################################

@@ -39,4 +39,11 @@ variable "private_db_subnet_cidrs" {
 }
 
 
+variable "my_ip_cidr" {
+  type        = list(string)
+  description = "Your public IP CIDR(s) for SSH to bastion"
+}
 
+variable "app_port" {
+  type    = number
+}

@@ -38,4 +38,6 @@ output "public_route_table_id" {
   description = "Public route table ID"
 }
 
-
+output "bastion_sg_id" {
+  value = module.security.bastion_sg_id
+}

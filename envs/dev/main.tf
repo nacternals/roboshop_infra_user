@@ -14,3 +14,16 @@ module "network" {
   private_db_subnet_cidrs    = var.private_db_subnet_cidrs
 }
 
+module "security" {
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//security?ref=v1.2.0"
+
+  project     = var.project
+  environment = var.environment
+  vpc_id      = module.network.vpc_id
+
+  my_ip_cidr = var.my_ip_cidr
+  app_port   = var.app_port
+
+  common_tags = local.common_tags
+}
+

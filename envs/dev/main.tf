@@ -1,16 +1,16 @@
 module "network" {
-  source      = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//network?ref=v1.0.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//network?ref=v1.1.0"
 
   project     = var.project
   environment = var.environment
   common_tags = local.common_tags
 
   vpc_cidr = var.vpc_cidr
-  azs                     = var.azs
-  public_subnet_cidrs      = var.public_subnet_cidrs
+
+  azs                        = local.azs
+  public_subnet_cidrs        = var.public_subnet_cidrs
   private_nginx_subnet_cidrs = var.private_nginx_subnet_cidrs
   private_app_subnet_cidrs   = var.private_app_subnet_cidrs
   private_db_subnet_cidrs    = var.private_db_subnet_cidrs
 }
-
 

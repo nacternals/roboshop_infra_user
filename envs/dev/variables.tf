@@ -18,11 +18,6 @@ variable "vpc_cidr" {
   description = "VPC CIDR block"
 }
 
-variable "azs" {
-  type        = list(string)
-  description = "List of AZs (e.g., [us-east-1a, us-east-1b])"
-}
-
 variable "public_subnet_cidrs" {
   type        = list(string)
   description = "Public subnet CIDRs (same length as azs)"

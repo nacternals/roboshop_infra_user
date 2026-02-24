@@ -45,5 +45,5 @@ variable "my_ip_cidr" {
 }
 
 variable "app_port" {
-  type    = number
+  type = number
 }

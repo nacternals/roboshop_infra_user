@@ -1,77 +1,47 @@
-########################################
-# Global Settings
-########################################
-
 variable "aws_region" {
-  description = "AWS region where infrastructure will be created"
   type        = string
-
-  validation {
-    condition     = length(var.aws_region) > 0
-    error_message = "AWS region must not be empty."
-  }
+  description = "AWS Region (e.g., us-east-1)"
 }
 
 variable "project" {
-  description = "Project name (e.g., roboshop)"
   type        = string
-
-  validation {
-    condition     = length(var.project) > 0
-    error_message = "Project name must not be empty."
-  }
+  description = "Project name (e.g., roboshop)"
 }
 
 variable "environment" {
-  description = "Environment name (dev, stage, prod)"
   type        = string
-
-  validation {
-    condition     = contains(["dev", "stage", "prod"], var.environment)
-    error_message = "Environment must be one of: dev, stage, prod."
-  }
+  description = "Environment name (e.g., dev/stage/prod)"
 }
 
-########################################
-# Network Configuration
-########################################
-
 variable "vpc_cidr" {
-  description = "CIDR block for VPC"
   type        = string
-
-  validation {
-    condition     = can(cidrhost(var.vpc_cidr, 0))
-    error_message = "VPC CIDR must be a valid CIDR block."
-  }
+  description = "VPC CIDR block"
 }
 
 variable "azs" {
-  description = "List of availability zones"
   type        = list(string)
-
-  validation {
-    condition     = length(var.azs) >= 2
-    error_message = "At least two availability zones are required."
-  }
+  description = "List of AZs (e.g., [us-east-1a, us-east-1b])"
 }
 
 variable "public_subnet_cidrs" {
-  description = "CIDR blocks for public subnets"
   type        = list(string)
+  description = "Public subnet CIDRs (same length as azs)"
 }
 
 variable "private_nginx_subnet_cidrs" {
-  description = "CIDR blocks for private nginx subnets"
   type        = list(string)
+  description = "Private Nginx subnet CIDRs (same length as azs)"
 }
 
 variable "private_app_subnet_cidrs" {
-  description = "CIDR blocks for private app subnets"
   type        = list(string)
+  description = "Private App subnet CIDRs (same length as azs)"
 }
 
 variable "private_db_subnet_cidrs" {
-  description = "CIDR blocks for private db subnets"
   type        = list(string)
+  description = "Private DB subnet CIDRs (same length as azs)"
 }
+
+
+

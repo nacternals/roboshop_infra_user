@@ -11,5 +11,5 @@ locals {
 
   # Auto-generated SSM parameter path
   ansadmin_pubkey_ssm_parameter_name = "/${var.project}/${var.environment}/ansible/ansadmin_pubkey"
-  
+
 }

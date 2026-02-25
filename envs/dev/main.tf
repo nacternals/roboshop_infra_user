@@ -1,5 +1,5 @@
 module "network" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//network?ref=v1.4.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//network?ref=v1.4.2"
 
   project     = var.project
   environment = var.environment
@@ -15,7 +15,7 @@ module "network" {
 }
 
 module "security" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//security?ref=v1.4.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//security?ref=v1.4.2"
 
   project     = var.project
   environment = var.environment
@@ -28,7 +28,7 @@ module "security" {
 }
 
 module "iam" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//iam?ref=v1.4.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//iam?ref=v1.4.2"
 
   project     = var.project
   environment = var.environment
@@ -45,7 +45,7 @@ module "iam" {
 
 
 module "bastion" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//bastion?ref=v1.4.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//bastion?ref=v1.4.2"
 
   project     = var.project
   environment = var.environment

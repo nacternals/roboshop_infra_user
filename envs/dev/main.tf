@@ -1,5 +1,5 @@
 module "network" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//network?ref=v1.3.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//network?ref=v1.4.1"
 
   project     = var.project
   environment = var.environment
@@ -15,7 +15,7 @@ module "network" {
 }
 
 module "security" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//security?ref=v1.3.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//security?ref=v1.4.1"
 
   project     = var.project
   environment = var.environment
@@ -28,7 +28,7 @@ module "security" {
 }
 
 module "iam" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//iam?ref=v1.3.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//iam?ref=v1.4.1"
 
   project     = var.project
   environment = var.environment
@@ -41,4 +41,24 @@ module "iam" {
 
   enable_lifecycle_actions = var.enable_lifecycle_actions
   passrole_arns            = var.passrole_arns
+}
+
+
+module "bastion" {
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//bastion?ref=v1.4.1"
+
+  project     = var.project
+  environment = var.environment
+  common_tags = local.common_tags
+
+  ami_id        = var.bastion_ami_id
+  instance_type = var.bastion_instance_type
+
+  subnet_id     = module.network.public_subnet_ids[0]
+  bastion_sg_id = module.security.bastion_sg_id
+
+  key_name                  = var.bastion_key_name
+  iam_instance_profile_name = module.iam.instance_profile_name
+
+  ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
 }

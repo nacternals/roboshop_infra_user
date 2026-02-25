@@ -1,52 +1,41 @@
-###############################
-# Network Module Outputs
-###############################
+############################
+# Network outputs
+############################
 output "vpc_id" {
-  value       = module.network.vpc_id
-  description = "VPC ID"
+  value = module.network.vpc_id
 }
 
 output "public_subnet_ids" {
-  value       = module.network.public_subnet_ids
-  description = "Public subnet IDs"
+  value = module.network.public_subnet_ids
 }
 
 output "private_nginx_subnet_ids" {
-  value       = module.network.private_nginx_subnet_ids
-  description = "Private Nginx subnet IDs"
+  value = module.network.private_nginx_subnet_ids
 }
 
 output "private_app_subnet_ids" {
-  value       = module.network.private_app_subnet_ids
-  description = "Private App subnet IDs"
+  value = module.network.private_app_subnet_ids
 }
 
 output "private_db_subnet_ids" {
-  value       = module.network.private_db_subnet_ids
-  description = "Private DB subnet IDs"
+  value = module.network.private_db_subnet_ids
 }
 
 output "igw_id" {
-  value       = module.network.igw_id
-  description = "Internet Gateway ID"
-}
-
-output "nat_gateway_ids" {
-  value       = module.network.nat_gateway_ids
-  description = "NAT Gateway IDs"
+  value = module.network.igw_id
 }
 
 output "public_route_table_id" {
-  value       = module.network.public_route_table_id
-  description = "Public route table ID"
+  value = module.network.public_route_table_id
 }
 
-
+output "nat_gateway_ids" {
+  value = module.network.nat_gateway_ids
+}
 
 ############################
-# Security Module Outputs
+# Security outputs
 ############################
-
 output "bastion_sg_id" {
   value = module.security.bastion_sg_id
 }
@@ -83,11 +72,9 @@ output "rabbitmq_sg_id" {
   value = module.security.rabbitmq_sg_id
 }
 
-
-
-###############################
-# IAM Module Outputs
-###############################
+############################
+# IAM outputs
+############################
 output "iam_role_name" {
   value = module.iam.role_name
 }
@@ -106,4 +93,27 @@ output "iam_instance_profile_arn" {
 
 output "iam_policy_arn" {
   value = module.iam.policy_arn
+}
+
+############################
+# Bastion outputs
+############################
+output "bastion_instance_id" {
+  value = module.bastion.instance_id
+}
+
+output "bastion_public_ip" {
+  value = module.bastion.public_ip
+}
+
+output "bastion_public_dns" {
+  value = module.bastion.public_dns
+}
+
+output "bastion_private_ip" {
+  value = module.bastion.private_ip
+}
+
+output "bastion_ssm_parameter_name" {
+  value = module.bastion.ssm_parameter_name
 }

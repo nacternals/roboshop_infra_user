@@ -1,5 +1,5 @@
 module "network" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//network?ref=v1.2.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//network?ref=v1.3.0"
 
   project     = var.project
   environment = var.environment
@@ -15,7 +15,7 @@ module "network" {
 }
 
 module "security" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//security?ref=v1.2.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//security?ref=v1.3.0"
 
   project     = var.project
   environment = var.environment
@@ -27,3 +27,18 @@ module "security" {
   common_tags = local.common_tags
 }
 
+module "iam" {
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//iam?ref=v1.3.0"
+
+  project     = var.project
+  environment = var.environment
+  common_tags = local.common_tags
+
+  # optional overrides
+  role_name             = var.role_name
+  instance_profile_name = var.instance_profile_name
+  policy_name           = var.policy_name
+
+  enable_lifecycle_actions = var.enable_lifecycle_actions
+  passrole_arns            = var.passrole_arns
+}

@@ -121,9 +121,9 @@ output "bastion_private_ip" {
 ############################
 # DB outputs
 ############################
-# output "mongodb_private_ip" {
-#   value = module.mongodb.private_ip
-# }
+output "mongodb_private_ip" {
+  value = module.mongodb.private_ip
+}
 
 # output "mysql_private_ip" {
 #   value = module.mysql.private_ip
@@ -137,14 +137,14 @@ output "bastion_private_ip" {
 #   value = module.rabbitmq.private_ip
 # }
 
-# output "db_private_ips" {
-#   value = {
-#     mongodb  = module.mongodb.private_ip
-#     mysql    = module.mysql.private_ip
-#     redis    = module.redis.private_ip
-#     rabbitmq = module.rabbitmq.private_ip
-#   }
-# }
+output "db_private_ips" {
+  value = {
+    mongodb  = module.mongodb.private_ip
+    mysql    = module.mysql.private_ip
+    redis    = module.redis.private_ip
+    rabbitmq = module.rabbitmq.private_ip
+  }
+}
 
 # ############################
 # # DNS / ALB outputs

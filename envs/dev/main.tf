@@ -1,5 +1,5 @@
 module "network" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//network?ref=v1.5.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//network?ref=v1.6.0"
 
   project     = var.project
   environment = var.environment
@@ -15,7 +15,7 @@ module "network" {
 }
 
 module "security" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//security?ref=v1.5.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//security?ref=v1.6.0"
 
   project     = var.project
   environment = var.environment
@@ -28,7 +28,7 @@ module "security" {
 }
 
 module "iam" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//iam?ref=v1.5.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//iam?ref=v1.6.0"
 
   project     = var.project
   environment = var.environment
@@ -45,7 +45,7 @@ module "iam" {
 
 
 module "bastion" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//bastion?ref=v1.5.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//bastion?ref=v1.6.0"
 
   project     = var.project
   environment = var.environment
@@ -65,7 +65,7 @@ module "bastion" {
 }
 
 module "mongodb" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//mongodb?ref=v1.5.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//mongodb?ref=v1.6.0"
 
   project     = var.project
   environment = var.environment
@@ -79,13 +79,13 @@ module "mongodb" {
   sg_id     = module.security.mongodb_sg_id
 
   iam_instance_profile_name = module.iam.instance_profile_name
-  ansadmin_public_key       = data.aws_ssm_parameter.ansadmin_pubkey.value
+ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
 
   depends_on = [module.bastion]
 }
 
 module "mysql" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//mysql?ref=v1.5.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//mysql?ref=v1.6.0"
 
   project     = var.project
   environment = var.environment
@@ -99,13 +99,13 @@ module "mysql" {
   sg_id     = module.security.mysql_sg_id
 
   iam_instance_profile_name = module.iam.instance_profile_name
-  ansadmin_public_key       = data.aws_ssm_parameter.ansadmin_pubkey.value
+ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
 
   depends_on = [module.bastion]
 }
 
 module "redis" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//redis?ref=v1.5.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//redis?ref=v1.6.0"
 
   project     = var.project
   environment = var.environment
@@ -119,13 +119,13 @@ module "redis" {
   sg_id     = module.security.redis_sg_id
 
   iam_instance_profile_name = module.iam.instance_profile_name
-  ansadmin_public_key       = data.aws_ssm_parameter.ansadmin_pubkey.value
+ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
 
   depends_on = [module.bastion]
 }
 
 module "rabbitmq" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//rabbitmq?ref=v1.5.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//rabbitmq?ref=v1.6.0"
 
   project     = var.project
   environment = var.environment
@@ -139,7 +139,7 @@ module "rabbitmq" {
   sg_id     = module.security.rabbitmq_sg_id
 
   iam_instance_profile_name = module.iam.instance_profile_name
-  ansadmin_public_key       = data.aws_ssm_parameter.ansadmin_pubkey.value
+ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
 
   depends_on = [module.bastion]
 }

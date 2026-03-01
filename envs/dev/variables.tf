@@ -1,6 +1,6 @@
 # Core
 variable "aws_region" { type = string }
-variable "project"    { type = string }
+variable "project" { type = string }
 variable "environment" { type = string }
 
 # Network
@@ -29,7 +29,7 @@ variable "my_ip_cidr" {
 }
 
 variable "app_port" {
-  description = "App port allowed from nginx to internal ALB (if used in security module)"
+  description = "App port allowed from nginx to internal ALB"
   type        = number
   default     = 8080
 }
@@ -62,10 +62,12 @@ variable "passrole_arns" {
 
 # Bastion
 variable "bastion_ami_id" { type = string }
+
 variable "bastion_instance_type" {
   type    = string
   default = "t2.micro"
 }
+
 variable "bastion_key_name" { type = string }
 
 # DB Tier
@@ -73,11 +75,12 @@ variable "db_instance_type" {
   type    = string
   default = "t2.micro"
 }
+
 variable "db_key_name" { type = string }
 
-variable "mongodb_ami_id"  { type = string }
-variable "mysql_ami_id"    { type = string }
-variable "redis_ami_id"    { type = string }
+variable "mongodb_ami_id" { type = string }
+variable "mysql_ami_id" { type = string }
+variable "redis_ami_id" { type = string }
 variable "rabbitmq_ami_id" { type = string }
 
 # Route53 Private Zone
@@ -115,8 +118,8 @@ variable "cpu_target" {
 
 # Microservice AMIs (golden)
 variable "catalogue_ami_id" { type = string }
-variable "cart_ami_id"      { type = string }
-variable "user_ami_id"      { type = string }
-variable "shipping_ami_id"  { type = string }
-variable "payment_ami_id"   { type = string }
-variable "dispatch_ami_id"  { type = string }
+variable "cart_ami_id" { type = string }
+variable "user_ami_id" { type = string }
+variable "shipping_ami_id" { type = string }
+variable "payment_ami_id" { type = string }
+variable "dispatch_ami_id" { type = string }

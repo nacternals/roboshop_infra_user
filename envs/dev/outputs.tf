@@ -5,18 +5,6 @@ output "vpc_id" {
   value = module.network.vpc_id
 }
 
-output "igw_id" {
-  value = module.network.igw_id
-}
-
-output "nat_gateway_ids" {
-  value = module.network.nat_gateway_ids
-}
-
-output "public_route_table_id" {
-  value = module.network.public_route_table_id
-}
-
 output "public_subnet_ids" {
   value = module.network.public_subnet_ids
 }
@@ -31,6 +19,18 @@ output "private_app_subnet_ids" {
 
 output "private_db_subnet_ids" {
   value = module.network.private_db_subnet_ids
+}
+
+output "igw_id" {
+  value = module.network.igw_id
+}
+
+output "public_route_table_id" {
+  value = module.network.public_route_table_id
+}
+
+output "nat_gateway_ids" {
+  value = module.network.nat_gateway_ids
 }
 
 ############################
@@ -154,7 +154,7 @@ output "private_zone_id" {
 }
 
 output "internal_alb_dns_name" {
-  value = module.internal_alb.dns_name
+  value = module.internal_alb.alb_dns_name
 }
 
 output "internal_alb_listener_arn" {

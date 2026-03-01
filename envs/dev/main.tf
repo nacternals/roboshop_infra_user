@@ -96,25 +96,25 @@ module "mongodb" {
   depends_on = [module.bastion]
 }
 
-# module "mysql" {
-#   source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//mysql?ref=v1.13.0"
+module "mysql" {
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//mysql?ref=v1.17.0"
 
-#   project     = var.project
-#   environment = var.environment
-#   common_tags = local.common_tags
+  project     = var.project
+  environment = var.environment
+  common_tags = local.common_tags
 
-#   ami_id        = var.mysql_ami_id
-#   instance_type = var.db_instance_type
-#   key_name      = var.db_key_name
+  ami_id        = var.mysql_ami_id
+  instance_type = var.db_instance_type
+  key_name      = var.db_key_name
 
-#   subnet_id = module.network.private_db_subnet_ids[1]
-#   sg_id     = module.security.mysql_sg_id
+  subnet_id = module.network.private_db_subnet_ids[1]
+  sg_id     = module.security.mysql_sg_id
 
-#   iam_instance_profile_name          = module.iam.instance_profile_name
-#   ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
+  iam_instance_profile_name          = module.iam.instance_profile_name
+  ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
 
-#   depends_on = [module.bastion]
-# }
+  depends_on = [module.bastion]
+}
 
 # module "redis" {
 #   source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//redis?ref=v1.13.0"

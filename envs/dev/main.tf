@@ -77,7 +77,7 @@ module "bastion" {
 # # DB Tier
 # # ----------------------------
 module "mongodb" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//mongodb?ref=v1.17.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//05_mongodb?ref=v1.17.0"
 
   project     = var.project
   environment = var.environment

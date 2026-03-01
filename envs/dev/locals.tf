@@ -5,11 +5,9 @@ locals {
     ManagedBy   = "terraform"
   }
 
-  # pick first 2 AZs in the region (stable ordering)
+  # Take first 2 AZs automatically (matches your network module input)
   azs = slice(sort(data.aws_availability_zones.available.names), 0, 2)
 
-
-  # Auto-generated SSM parameter path
+  # Where bastion will write pubkey, and DB modules will read pubkey from
   ansadmin_pubkey_ssm_parameter_name = "/${var.project}/${var.environment}/ansible/ansadmin_pubkey"
-
 }

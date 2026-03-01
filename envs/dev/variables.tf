@@ -14,7 +14,7 @@ variable "environment" {
 }
 
 ############################
-# Network module inputs
+# Network inputs
 ############################
 variable "vpc_cidr" {
   type = string
@@ -37,21 +37,19 @@ variable "private_db_subnet_cidrs" {
 }
 
 ############################
-# Security module inputs
+# Security inputs
 ############################
 variable "my_ip_cidr" {
-  type        = list(string)
-  description = "Your public IP CIDR(s), e.g. [\"x.x.x.x/32\"]"
+  type = list(string)
 }
 
 variable "app_port" {
-  type        = number
-  default     = 8080
-  description = "Microservices port"
+  type    = number
+  default = 8080
 }
 
 ############################
-# IAM module inputs (optional overrides)
+# IAM inputs (optional overrides)
 ############################
 variable "role_name" {
   type    = string
@@ -79,20 +77,45 @@ variable "passrole_arns" {
 }
 
 ############################
-# Bastion module inputs
+# Bastion inputs
 ############################
 variable "bastion_ami_id" {
-  type        = string
-  description = "AMI ID for bastion/ansible controller"
+  type = string
 }
 
 variable "bastion_instance_type" {
-  type        = string
-  description = "Instance type of bastion/ansible controller"
+  type    = string
+  default = "t2.micro"
 }
 
 variable "bastion_key_name" {
-  type        = string
-  description = "Existing EC2 key pair name"
+  type = string
 }
 
+############################
+# DB tier inputs (golden AMIs)
+############################
+variable "db_instance_type" {
+  type    = string
+  default = "t2.micro"
+}
+
+variable "db_key_name" {
+  type = string
+}
+
+variable "mongodb_ami_id" {
+  type = string
+}
+
+variable "mysql_ami_id" {
+  type = string
+}
+
+variable "redis_ami_id" {
+  type = string
+}
+
+variable "rabbitmq_ami_id" {
+  type = string
+}

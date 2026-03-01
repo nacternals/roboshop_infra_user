@@ -1,8 +1,8 @@
-# ----------------------------
+# # ----------------------------
 # Network
 # ----------------------------
 module "network" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//network?ref=v1.12.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//network?ref=v1.13.0"
 
   project     = var.project
   environment = var.environment
@@ -21,7 +21,7 @@ module "network" {
 # Security (bastion + db + internal alb sgs)
 # ----------------------------
 module "security" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//security?ref=v1.12.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//security?ref=v1.13.0"
 
   project     = var.project
   environment = var.environment
@@ -37,7 +37,7 @@ module "security" {
 # IAM (instance profile)
 # ----------------------------
 module "iam" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//iam?ref=v1.12.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//iam?ref=v1.13.0"
 
   project     = var.project
   environment = var.environment
@@ -55,7 +55,7 @@ module "iam" {
 # Bastion
 # ----------------------------
 module "bastion" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//bastion?ref=v1.12.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//bastion?ref=v1.13.0"
 
   project     = var.project
   environment = var.environment
@@ -73,295 +73,295 @@ module "bastion" {
   ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
 }
 
-# ----------------------------
-# DB Tier
-# ----------------------------
-module "mongodb" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//mongodb?ref=v1.12.1"
+# # ----------------------------
+# # DB Tier
+# # ----------------------------
+# module "mongodb" {
+#   source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//mongodb?ref=v1.13.0"
 
-  project     = var.project
-  environment = var.environment
-  common_tags = local.common_tags
+#   project     = var.project
+#   environment = var.environment
+#   common_tags = local.common_tags
 
-  ami_id        = var.mongodb_ami_id
-  instance_type = var.db_instance_type
-  key_name      = var.db_key_name
+#   ami_id        = var.mongodb_ami_id
+#   instance_type = var.db_instance_type
+#   key_name      = var.db_key_name
 
-  subnet_id = module.network.private_db_subnet_ids[0]
-  sg_id     = module.security.mongodb_sg_id
+#   subnet_id = module.network.private_db_subnet_ids[0]
+#   sg_id     = module.security.mongodb_sg_id
 
-  iam_instance_profile_name          = module.iam.instance_profile_name
-  ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
+#   iam_instance_profile_name          = module.iam.instance_profile_name
+#   ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
 
-  depends_on = [module.bastion]
-}
+#   depends_on = [module.bastion]
+# }
 
-module "mysql" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//mysql?ref=v1.12.1"
+# module "mysql" {
+#   source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//mysql?ref=v1.13.0"
 
-  project     = var.project
-  environment = var.environment
-  common_tags = local.common_tags
+#   project     = var.project
+#   environment = var.environment
+#   common_tags = local.common_tags
 
-  ami_id        = var.mysql_ami_id
-  instance_type = var.db_instance_type
-  key_name      = var.db_key_name
+#   ami_id        = var.mysql_ami_id
+#   instance_type = var.db_instance_type
+#   key_name      = var.db_key_name
 
-  subnet_id = module.network.private_db_subnet_ids[1]
-  sg_id     = module.security.mysql_sg_id
+#   subnet_id = module.network.private_db_subnet_ids[1]
+#   sg_id     = module.security.mysql_sg_id
 
-  iam_instance_profile_name          = module.iam.instance_profile_name
-  ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
+#   iam_instance_profile_name          = module.iam.instance_profile_name
+#   ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
 
-  depends_on = [module.bastion]
-}
+#   depends_on = [module.bastion]
+# }
 
-module "redis" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//redis?ref=v1.12.1"
+# module "redis" {
+#   source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//redis?ref=v1.13.0"
 
-  project     = var.project
-  environment = var.environment
-  common_tags = local.common_tags
+#   project     = var.project
+#   environment = var.environment
+#   common_tags = local.common_tags
 
-  ami_id        = var.redis_ami_id
-  instance_type = var.db_instance_type
-  key_name      = var.db_key_name
+#   ami_id        = var.redis_ami_id
+#   instance_type = var.db_instance_type
+#   key_name      = var.db_key_name
 
-  subnet_id = module.network.private_db_subnet_ids[0]
-  sg_id     = module.security.redis_sg_id
+#   subnet_id = module.network.private_db_subnet_ids[0]
+#   sg_id     = module.security.redis_sg_id
 
-  iam_instance_profile_name          = module.iam.instance_profile_name
-  ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
+#   iam_instance_profile_name          = module.iam.instance_profile_name
+#   ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
 
-  depends_on = [module.bastion]
-}
+#   depends_on = [module.bastion]
+# }
 
-module "rabbitmq" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//rabbitmq?ref=v1.12.1"
+# module "rabbitmq" {
+#   source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//rabbitmq?ref=v1.13.0"
 
-  project     = var.project
-  environment = var.environment
-  common_tags = local.common_tags
+#   project     = var.project
+#   environment = var.environment
+#   common_tags = local.common_tags
 
-  ami_id        = var.rabbitmq_ami_id
-  instance_type = var.db_instance_type
-  key_name      = var.db_key_name
+#   ami_id        = var.rabbitmq_ami_id
+#   instance_type = var.db_instance_type
+#   key_name      = var.db_key_name
 
-  subnet_id = module.network.private_db_subnet_ids[1]
-  sg_id     = module.security.rabbitmq_sg_id
+#   subnet_id = module.network.private_db_subnet_ids[1]
+#   sg_id     = module.security.rabbitmq_sg_id
 
-  iam_instance_profile_name          = module.iam.instance_profile_name
-  ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
+#   iam_instance_profile_name          = module.iam.instance_profile_name
+#   ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
 
-  depends_on = [module.bastion]
-}
+#   depends_on = [module.bastion]
+# }
 
-# ----------------------------
-# Internal ALB (APP tier)
-# ----------------------------
-module "internal_alb" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//internal-alb?ref=v1.12.1"
+# # ----------------------------
+# # Internal ALB (APP tier)
+# # ----------------------------
+# module "internal_alb" {
+#   source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//internal-alb?ref=v1.13.0"
 
-  project     = var.project
-  environment = var.environment
-  common_tags = local.common_tags
+#   project     = var.project
+#   environment = var.environment
+#   common_tags = local.common_tags
 
-  vpc_id              = module.network.vpc_id
-  private_app_subnets = module.network.private_app_subnet_ids
+#   vpc_id              = module.network.vpc_id
+#   private_app_subnets = module.network.private_app_subnet_ids
 
-  nginx_sg_id   = module.security.nginx_sg_id
-  listener_port = 80
+#   nginx_sg_id   = module.security.nginx_sg_id
+#   listener_port = 80
 
-  depends_on = [module.network, module.security]
-}
+#   depends_on = [module.network, module.security]
+# }
 
-# ----------------------------
-# Route53 Private Hosted Zone
-# ----------------------------
-module "route53_private" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//route53-private?ref=v1.12.1"
+# # ----------------------------
+# # Route53 Private Hosted Zone
+# # ----------------------------
+# module "route53_private" {
+#   source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//route53-private?ref=v1.13.0"
 
-  project     = var.project
-  environment = var.environment
-  common_tags = local.common_tags
+#   project     = var.project
+#   environment = var.environment
+#   common_tags = local.common_tags
 
-  vpc_id = module.network.vpc_id
+#   vpc_id = module.network.vpc_id
 
-  zone_name    = var.private_zone_name
-  alb_dns_name = module.internal_alb.alb_dns_name
-  alb_zone_id  = module.internal_alb.alb_zone_id
+#   zone_name    = var.private_zone_name
+#   alb_dns_name = module.internal_alb.alb_dns_name
+#   alb_zone_id  = module.internal_alb.alb_zone_id
 
-  depends_on = [module.internal_alb]
-}
+#   depends_on = [module.internal_alb]
+# }
 
-# ----------------------------
-# APP Tier Services (Option A)
-# Each module creates its own SG (no app_nodes_sg_id)
-# ----------------------------
-module "service_catalogue" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-catalogue?ref=v1.12.1"
+# # ----------------------------
+# # APP Tier Services (Option A)
+# # Each module creates its own SG (no app_nodes_sg_id)
+# # ----------------------------
+# module "service_catalogue" {
+#   source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-catalogue?ref=v1.13.0"
 
-  project     = var.project
-  environment = var.environment
-  common_tags = local.common_tags
+#   project     = var.project
+#   environment = var.environment
+#   common_tags = local.common_tags
 
-  vpc_id              = module.network.vpc_id
-  private_app_subnets = module.network.private_app_subnet_ids
+#   vpc_id              = module.network.vpc_id
+#   private_app_subnets = module.network.private_app_subnet_ids
 
-  listener_arn  = module.internal_alb.listener_arn
-  alb_sg_id     = module.security.alb_internal_sg_id
-  bastion_sg_id = module.security.bastion_sg_id
+#   listener_arn  = module.internal_alb.listener_arn
+#   alb_sg_id     = module.security.alb_internal_sg_id
+#   bastion_sg_id = module.security.bastion_sg_id
 
-  host_header   = "catalogue.${var.private_zone_name}"
-  rule_priority = 10
+#   host_header   = "catalogue.${var.private_zone_name}"
+#   rule_priority = 10
 
-  ami_id        = var.catalogue_ami_id
-  instance_type = var.app_instance_type
+#   ami_id        = var.catalogue_ami_id
+#   instance_type = var.app_instance_type
 
-  desired    = var.app_desired
-  min        = var.app_min
-  max        = var.app_max
-  cpu_target = var.cpu_target
+#   desired    = var.app_desired
+#   min        = var.app_min
+#   max        = var.app_max
+#   cpu_target = var.cpu_target
 
-  depends_on = [module.internal_alb, module.bastion]
-}
+#   depends_on = [module.internal_alb, module.bastion]
+# }
 
-module "service_cart" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-cart?ref=v1.12.1"
+# module "service_cart" {
+#   source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-cart?ref=v1.13.0"
 
-  project     = var.project
-  environment = var.environment
-  common_tags = local.common_tags
+#   project     = var.project
+#   environment = var.environment
+#   common_tags = local.common_tags
 
-  vpc_id              = module.network.vpc_id
-  private_app_subnets = module.network.private_app_subnet_ids
+#   vpc_id              = module.network.vpc_id
+#   private_app_subnets = module.network.private_app_subnet_ids
 
-  listener_arn  = module.internal_alb.listener_arn
-  alb_sg_id     = module.security.alb_internal_sg_id
-  bastion_sg_id = module.security.bastion_sg_id
+#   listener_arn  = module.internal_alb.listener_arn
+#   alb_sg_id     = module.security.alb_internal_sg_id
+#   bastion_sg_id = module.security.bastion_sg_id
 
-  host_header   = "cart.${var.private_zone_name}"
-  rule_priority = 20
+#   host_header   = "cart.${var.private_zone_name}"
+#   rule_priority = 20
 
-  ami_id        = var.cart_ami_id
-  instance_type = var.app_instance_type
+#   ami_id        = var.cart_ami_id
+#   instance_type = var.app_instance_type
 
-  desired    = var.app_desired
-  min        = var.app_min
-  max        = var.app_max
-  cpu_target = var.cpu_target
+#   desired    = var.app_desired
+#   min        = var.app_min
+#   max        = var.app_max
+#   cpu_target = var.cpu_target
 
-  depends_on = [module.internal_alb, module.bastion]
-}
+#   depends_on = [module.internal_alb, module.bastion]
+# }
 
-module "service_user" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-user?ref=v1.12.1"
+# module "service_user" {
+#   source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-user?ref=v1.13.0"
 
-  project     = var.project
-  environment = var.environment
-  common_tags = local.common_tags
+#   project     = var.project
+#   environment = var.environment
+#   common_tags = local.common_tags
 
-  vpc_id              = module.network.vpc_id
-  private_app_subnets = module.network.private_app_subnet_ids
+#   vpc_id              = module.network.vpc_id
+#   private_app_subnets = module.network.private_app_subnet_ids
 
-  listener_arn  = module.internal_alb.listener_arn
-  alb_sg_id     = module.security.alb_internal_sg_id
-  bastion_sg_id = module.security.bastion_sg_id
+#   listener_arn  = module.internal_alb.listener_arn
+#   alb_sg_id     = module.security.alb_internal_sg_id
+#   bastion_sg_id = module.security.bastion_sg_id
 
-  host_header   = "user.${var.private_zone_name}"
-  rule_priority = 30
+#   host_header   = "user.${var.private_zone_name}"
+#   rule_priority = 30
 
-  ami_id        = var.user_ami_id
-  instance_type = var.app_instance_type
+#   ami_id        = var.user_ami_id
+#   instance_type = var.app_instance_type
 
-  desired    = var.app_desired
-  min        = var.app_min
-  max        = var.app_max
-  cpu_target = var.cpu_target
+#   desired    = var.app_desired
+#   min        = var.app_min
+#   max        = var.app_max
+#   cpu_target = var.cpu_target
 
-  depends_on = [module.internal_alb, module.bastion]
-}
+#   depends_on = [module.internal_alb, module.bastion]
+# }
 
-module "service_shipping" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-shipping?ref=v1.12.1"
+# module "service_shipping" {
+#   source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-shipping?ref=v1.13.0"
 
-  project     = var.project
-  environment = var.environment
-  common_tags = local.common_tags
+#   project     = var.project
+#   environment = var.environment
+#   common_tags = local.common_tags
 
-  vpc_id              = module.network.vpc_id
-  private_app_subnets = module.network.private_app_subnet_ids
+#   vpc_id              = module.network.vpc_id
+#   private_app_subnets = module.network.private_app_subnet_ids
 
-  listener_arn  = module.internal_alb.listener_arn
-  alb_sg_id     = module.security.alb_internal_sg_id
-  bastion_sg_id = module.security.bastion_sg_id
+#   listener_arn  = module.internal_alb.listener_arn
+#   alb_sg_id     = module.security.alb_internal_sg_id
+#   bastion_sg_id = module.security.bastion_sg_id
 
-  host_header   = "shipping.${var.private_zone_name}"
-  rule_priority = 40
+#   host_header   = "shipping.${var.private_zone_name}"
+#   rule_priority = 40
 
-  ami_id        = var.shipping_ami_id
-  instance_type = var.app_instance_type
+#   ami_id        = var.shipping_ami_id
+#   instance_type = var.app_instance_type
 
-  desired    = var.app_desired
-  min        = var.app_min
-  max        = var.app_max
-  cpu_target = var.cpu_target
+#   desired    = var.app_desired
+#   min        = var.app_min
+#   max        = var.app_max
+#   cpu_target = var.cpu_target
 
-  depends_on = [module.internal_alb, module.bastion]
-}
+#   depends_on = [module.internal_alb, module.bastion]
+# }
 
-module "service_payment" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-payment?ref=v1.12.1"
+# module "service_payment" {
+#   source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-payment?ref=v1.13.0"
 
-  project     = var.project
-  environment = var.environment
-  common_tags = local.common_tags
+#   project     = var.project
+#   environment = var.environment
+#   common_tags = local.common_tags
 
-  vpc_id              = module.network.vpc_id
-  private_app_subnets = module.network.private_app_subnet_ids
+#   vpc_id              = module.network.vpc_id
+#   private_app_subnets = module.network.private_app_subnet_ids
 
-  listener_arn  = module.internal_alb.listener_arn
-  alb_sg_id     = module.security.alb_internal_sg_id
-  bastion_sg_id = module.security.bastion_sg_id
+#   listener_arn  = module.internal_alb.listener_arn
+#   alb_sg_id     = module.security.alb_internal_sg_id
+#   bastion_sg_id = module.security.bastion_sg_id
 
-  host_header   = "payment.${var.private_zone_name}"
-  rule_priority = 50
+#   host_header   = "payment.${var.private_zone_name}"
+#   rule_priority = 50
 
-  ami_id        = var.payment_ami_id
-  instance_type = var.app_instance_type
+#   ami_id        = var.payment_ami_id
+#   instance_type = var.app_instance_type
 
-  desired    = var.app_desired
-  min        = var.app_min
-  max        = var.app_max
-  cpu_target = var.cpu_target
+#   desired    = var.app_desired
+#   min        = var.app_min
+#   max        = var.app_max
+#   cpu_target = var.cpu_target
 
-  depends_on = [module.internal_alb, module.bastion]
-}
+#   depends_on = [module.internal_alb, module.bastion]
+# }
 
-module "service_dispatch" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-dispatch?ref=v1.12.1"
+# module "service_dispatch" {
+#   source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-dispatch?ref=v1.13.0"
 
-  project     = var.project
-  environment = var.environment
-  common_tags = local.common_tags
+#   project     = var.project
+#   environment = var.environment
+#   common_tags = local.common_tags
 
-  vpc_id              = module.network.vpc_id
-  private_app_subnets = module.network.private_app_subnet_ids
+#   vpc_id              = module.network.vpc_id
+#   private_app_subnets = module.network.private_app_subnet_ids
 
-  listener_arn  = module.internal_alb.listener_arn
-  alb_sg_id     = module.security.alb_internal_sg_id
-  bastion_sg_id = module.security.bastion_sg_id
+#   listener_arn  = module.internal_alb.listener_arn
+#   alb_sg_id     = module.security.alb_internal_sg_id
+#   bastion_sg_id = module.security.bastion_sg_id
 
-  host_header   = "dispatch.${var.private_zone_name}"
-  rule_priority = 60
+#   host_header   = "dispatch.${var.private_zone_name}"
+#   rule_priority = 60
 
-  ami_id        = var.dispatch_ami_id
-  instance_type = var.app_instance_type
+#   ami_id        = var.dispatch_ami_id
+#   instance_type = var.app_instance_type
 
-  desired    = var.app_desired
-  min        = var.app_min
-  max        = var.app_max
-  cpu_target = var.cpu_target
+#   desired    = var.app_desired
+#   min        = var.app_min
+#   max        = var.app_max
+#   cpu_target = var.cpu_target
 
-  depends_on = [module.internal_alb, module.bastion]
-}
+#   depends_on = [module.internal_alb, module.bastion]
+# }

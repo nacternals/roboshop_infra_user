@@ -78,8 +78,8 @@ module "mongodb" {
   subnet_id = module.network.private_db_subnet_ids[0]
   sg_id     = module.security.mongodb_sg_id
 
-  iam_instance_profile_name = module.iam.instance_profile_name
-ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
+  iam_instance_profile_name          = module.iam.instance_profile_name
+  ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
 
   depends_on = [module.bastion]
 }
@@ -98,8 +98,8 @@ module "mysql" {
   subnet_id = module.network.private_db_subnet_ids[1]
   sg_id     = module.security.mysql_sg_id
 
-  iam_instance_profile_name = module.iam.instance_profile_name
-ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
+  iam_instance_profile_name          = module.iam.instance_profile_name
+  ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
 
   depends_on = [module.bastion]
 }
@@ -118,8 +118,8 @@ module "redis" {
   subnet_id = module.network.private_db_subnet_ids[0]
   sg_id     = module.security.redis_sg_id
 
-  iam_instance_profile_name = module.iam.instance_profile_name
-ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
+  iam_instance_profile_name          = module.iam.instance_profile_name
+  ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
 
   depends_on = [module.bastion]
 }
@@ -138,8 +138,8 @@ module "rabbitmq" {
   subnet_id = module.network.private_db_subnet_ids[1]
   sg_id     = module.security.rabbitmq_sg_id
 
-  iam_instance_profile_name = module.iam.instance_profile_name
-ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
+  iam_instance_profile_name          = module.iam.instance_profile_name
+  ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
 
   depends_on = [module.bastion]
 }

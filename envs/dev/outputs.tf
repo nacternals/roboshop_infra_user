@@ -5,6 +5,18 @@ output "vpc_id" {
   value = module.network.vpc_id
 }
 
+output "igw_id" {
+  value = module.network.igw_id
+}
+
+output "nat_gateway_ids" {
+  value = module.network.nat_gateway_ids
+}
+
+output "public_route_table_id" {
+  value = module.network.public_route_table_id
+}
+
 output "public_subnet_ids" {
   value = module.network.public_subnet_ids
 }
@@ -19,18 +31,6 @@ output "private_app_subnet_ids" {
 
 output "private_db_subnet_ids" {
   value = module.network.private_db_subnet_ids
-}
-
-output "igw_id" {
-  value = module.network.igw_id
-}
-
-output "public_route_table_id" {
-  value = module.network.public_route_table_id
-}
-
-output "nat_gateway_ids" {
-  value = module.network.nat_gateway_ids
 }
 
 ############################
@@ -98,6 +98,10 @@ output "iam_policy_arn" {
 ############################
 # Bastion outputs
 ############################
+output "ansadmin_pubkey_ssm_parameter_name" {
+  value = local.ansadmin_pubkey_ssm_parameter_name
+}
+
 output "bastion_instance_id" {
   value = module.bastion.instance_id
 }
@@ -112,10 +116,6 @@ output "bastion_public_dns" {
 
 output "bastion_private_ip" {
   value = module.bastion.private_ip
-}
-
-output "ansadmin_pubkey_ssm_parameter_name" {
-  value = local.ansadmin_pubkey_ssm_parameter_name
 }
 
 ############################
@@ -144,4 +144,46 @@ output "db_private_ips" {
     redis    = module.redis.private_ip
     rabbitmq = module.rabbitmq.private_ip
   }
+}
+
+############################
+# DNS / ALB outputs
+############################
+output "private_zone_id" {
+  value = module.route53_private.zone_id
+}
+
+output "internal_alb_dns_name" {
+  value = module.internal_alb.dns_name
+}
+
+output "internal_alb_listener_arn" {
+  value = module.internal_alb.listener_arn
+}
+
+############################
+# App Tier Services outputs
+############################
+output "catalogue_asg_name" {
+  value = module.service_catalogue.asg_name
+}
+
+output "cart_asg_name" {
+  value = module.service_cart.asg_name
+}
+
+output "user_asg_name" {
+  value = module.service_user.asg_name
+}
+
+output "shipping_asg_name" {
+  value = module.service_shipping.asg_name
+}
+
+output "payment_asg_name" {
+  value = module.service_payment.asg_name
+}
+
+output "dispatch_asg_name" {
+  value = module.service_dispatch.asg_name
 }

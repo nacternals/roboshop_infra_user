@@ -117,7 +117,7 @@ module "mysql" {
 }
 
 module "redis" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//redis?ref=v1.17.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//07_redis?ref=v1.17.0"
 
   project     = var.project
   environment = var.environment
@@ -137,7 +137,7 @@ module "redis" {
 }
 
 module "rabbitmq" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//rabbitmq?ref=v1.17.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//08_rabbitmq?ref=v1.17.0"
 
   project     = var.project
   environment = var.environment

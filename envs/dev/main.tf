@@ -2,7 +2,7 @@
 # Network
 # ----------------------------
 module "network" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//network?ref=v1.17.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//01_network?ref=v1.17.0"
 
   project     = var.project
   environment = var.environment
@@ -21,7 +21,7 @@ module "network" {
 # Security (bastion + db + internal alb sgs)
 # ----------------------------
 module "security" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//security?ref=v1.17.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//02_security?ref=v1.17.0"
 
   project     = var.project
   environment = var.environment
@@ -37,7 +37,7 @@ module "security" {
 # IAM (instance profile)
 # ----------------------------
 module "iam" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//iam?ref=v1.17.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//03_iam?ref=v1.17.0"
 
   project     = var.project
   environment = var.environment
@@ -55,7 +55,7 @@ module "iam" {
 # Bastion
 # ----------------------------
 module "bastion" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//bastion?ref=v1.17.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//04_bastion?ref=v1.17.0"
 
   project     = var.project
   environment = var.environment

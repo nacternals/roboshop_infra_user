@@ -222,8 +222,9 @@ module "service_catalogue" {
   min        = var.app_min
   max        = var.app_max
   cpu_target = var.cpu_target
+ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
 
-  ansadmin_pubkey_ssm_parameter_name = module.bastion.ansadmin_pubkey_ssm_parameter_name
+
 
   depends_on = [module.internal_alb, module.bastion]
 }

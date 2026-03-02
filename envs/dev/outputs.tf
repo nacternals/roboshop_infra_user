@@ -146,27 +146,27 @@ output "db_private_ips" {
   }
 }
 
-# ############################
-# # DNS / ALB outputs
-# ############################
-# output "private_zone_id" {
-#   value = module.route53_private.zone_id
-# }
+############################
+# DNS / ALB outputs
+############################
+output "private_zone_id" {
+  value = module.route53_private.zone_id
+}
 
-# output "internal_alb_dns_name" {
-#   value = module.internal_alb.alb_dns_name
-# }
+output "internal_alb_dns_name" {
+  value = module.internal_alb.alb_dns_name
+}
 
-# output "internal_alb_listener_arn" {
-#   value = module.internal_alb.listener_arn
-# }
+output "internal_alb_listener_arn" {
+  value = module.internal_alb.listener_arn
+}
 
 # ############################
 # # App Tier Services outputs
 # ############################
-# output "catalogue_asg_name" {
-#   value = module.service_catalogue.asg_name
-# }
+output "catalogue_asg_name" {
+  value = module.service_catalogue.asg_name
+}
 
 # output "cart_asg_name" {
 #   value = module.service_cart.asg_name

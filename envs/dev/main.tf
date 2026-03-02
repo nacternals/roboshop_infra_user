@@ -170,7 +170,7 @@ module "internal_alb" {
   private_app_subnets = module.network.private_app_subnet_ids
 
   listener_port = 80
-  alb_sg_id      = module.security.alb_internal_sg_id
+  alb_sg_id     = module.security.alb_internal_sg_id
 
   depends_on = [module.network, module.security]
 }

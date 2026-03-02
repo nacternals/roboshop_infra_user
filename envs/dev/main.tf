@@ -160,7 +160,7 @@ module "rabbitmq" {
 # Internal ALB (APP tier)
 # ----------------------------
 module "internal_alb" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//internal-alb?ref=v1.20.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//09_internal-alb?ref=v1.20.0"
 
   project     = var.project
   environment = var.environment
@@ -179,7 +179,7 @@ module "internal_alb" {
 # Route53 Private Hosted Zone
 # ----------------------------
 module "route53_private" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//route53-private?ref=v1.20.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//10_route53-private?ref=v1.20.0"
 
   project     = var.project
   environment = var.environment
@@ -199,7 +199,7 @@ module "route53_private" {
 # # Each module creates its own SG (no app_nodes_sg_id)
 # # ----------------------------
 module "service_catalogue" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-catalogue?ref=v1.20.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//11_service-catalogue?ref=v1.20.0"
 
   project     = var.project
   environment = var.environment

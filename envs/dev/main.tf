@@ -218,12 +218,13 @@ module "service_catalogue" {
   ami_id        = var.catalogue_ami_id
   instance_type = var.app_instance_type
 
-  desired                            = var.app_desired
-  min                                = var.app_min
-  max                                = var.app_max
-  cpu_target                         = var.cpu_target
-  ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
+  desired    = var.app_desired
+  min        = var.app_min
+  max        = var.app_max
+  cpu_target = var.cpu_target
 
+  ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
+  iam_instance_profile_name          = module.iam.instance_profile_name
 
 
   depends_on = [module.internal_alb, module.bastion]

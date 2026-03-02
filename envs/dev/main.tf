@@ -2,7 +2,7 @@
 # Network
 # ----------------------------
 module "network" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//01_network?ref=v1.20.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//01_network?ref=v1.21.0"
 
   project     = var.project
   environment = var.environment
@@ -21,7 +21,7 @@ module "network" {
 # Security (bastion + db + internal alb sgs)
 # ----------------------------
 module "security" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//02_security?ref=v1.20.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//02_security?ref=v1.21.0"
 
   project     = var.project
   environment = var.environment
@@ -37,7 +37,7 @@ module "security" {
 # IAM (instance profile)
 # ----------------------------
 module "iam" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//03_iam?ref=v1.20.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//03_iam?ref=v1.21.0"
 
   project     = var.project
   environment = var.environment
@@ -55,7 +55,7 @@ module "iam" {
 # Bastion
 # ----------------------------
 module "bastion" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//04_bastion?ref=v1.20.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//04_bastion?ref=v1.21.0"
 
   project     = var.project
   environment = var.environment
@@ -77,7 +77,7 @@ module "bastion" {
 # # DB Tier
 # # ----------------------------
 module "mongodb" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//05_mongodb?ref=v1.20.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//05_mongodb?ref=v1.21.0"
 
   project     = var.project
   environment = var.environment
@@ -97,7 +97,7 @@ module "mongodb" {
 }
 
 module "mysql" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//06_mysql?ref=v1.20.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//06_mysql?ref=v1.21.0"
 
   project     = var.project
   environment = var.environment
@@ -117,7 +117,7 @@ module "mysql" {
 }
 
 module "redis" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//07_redis?ref=v1.20.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//07_redis?ref=v1.21.0"
 
   project     = var.project
   environment = var.environment
@@ -137,7 +137,7 @@ module "redis" {
 }
 
 module "rabbitmq" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//08_rabbitmq?ref=v1.20.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//08_rabbitmq?ref=v1.21.0"
 
   project     = var.project
   environment = var.environment
@@ -160,7 +160,7 @@ module "rabbitmq" {
 # Internal ALB (APP tier)
 # ----------------------------
 module "internal_alb" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//09_internal-alb?ref=v1.20.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//09_internal-alb?ref=v1.21.0"
 
   project     = var.project
   environment = var.environment
@@ -179,7 +179,7 @@ module "internal_alb" {
 # Route53 Private Hosted Zone
 # ----------------------------
 module "route53_private" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//10_route53-private?ref=v1.20.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//10_route53-private?ref=v1.21.0"
 
   project     = var.project
   environment = var.environment
@@ -214,7 +214,7 @@ module "route53_private" {
 # # Each module creates its own SG (no app_nodes_sg_id)
 # # ----------------------------
 module "service_catalogue" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//11_service-catalogue?ref=v1.20.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//11_service-catalogue?ref=v1.21.0"
 
   project     = var.project
   environment = var.environment
@@ -246,7 +246,7 @@ module "service_catalogue" {
 }
 
 module "service_cart" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-cart?ref=v1.20.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-cart?ref=v1.21.0"
 
   project     = var.project
   environment = var.environment
@@ -273,12 +273,11 @@ module "service_cart" {
   ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
   iam_instance_profile_name          = module.iam.instance_profile_name
 
-
   depends_on = [module.internal_alb, module.bastion]
 }
 
 module "service_user" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-user?ref=v1.20.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-user?ref=v1.21.0"
 
   project     = var.project
   environment = var.environment
@@ -309,7 +308,7 @@ module "service_user" {
 }
 
 module "service_shipping" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-shipping?ref=v1.20.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-shipping?ref=v1.21.0"
 
   project     = var.project
   environment = var.environment
@@ -341,7 +340,7 @@ module "service_shipping" {
 }
 
 module "service_payment" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-payment?ref=v1.20.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-payment?ref=v1.21.0"
 
   project     = var.project
   environment = var.environment
@@ -372,7 +371,7 @@ module "service_payment" {
 }
 
 module "service_dispatch" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-dispatch?ref=v1.20.1"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//service-dispatch?ref=v1.21.0"
 
   project     = var.project
   environment = var.environment

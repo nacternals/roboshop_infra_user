@@ -168,22 +168,22 @@ output "catalogue_asg_name" {
   value = module.service_catalogue.asg_name
 }
 
-# output "cart_asg_name" {
-#   value = module.service_cart.asg_name
-# }
+output "cart_asg_name" {
+  value = module.service_cart.asg_name
+}
 
-# output "user_asg_name" {
-#   value = module.service_user.asg_name
-# }
+output "user_asg_name" {
+  value = module.service_user.asg_name
+}
 
-# output "shipping_asg_name" {
-#   value = module.service_shipping.asg_name
-# }
+output "shipping_asg_name" {
+  value = module.service_shipping.asg_name
+}
 
-# output "payment_asg_name" {
-#   value = module.service_payment.asg_name
-# }
+output "payment_asg_name" {
+  value = module.service_payment.asg_name
+}
 
-# output "dispatch_asg_name" {
-#   value = module.service_dispatch.asg_name
-# }
+output "dispatch_asg_name" {
+  value = module.service_dispatch.asg_name
+}

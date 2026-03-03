@@ -2,7 +2,7 @@
 # Network
 # ----------------------------
 module "network" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//01_network?ref=v1.30.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//01_network?ref=v1.31.0"
 
   project     = var.project
   environment = var.environment
@@ -21,7 +21,7 @@ module "network" {
 # Security (bastion + db + internal alb sgs)
 # ----------------------------
 module "security" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//02_security?ref=v1.30.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//02_security?ref=v1.31.0"
 
   project     = var.project
   environment = var.environment
@@ -37,7 +37,7 @@ module "security" {
 # IAM (instance profile)
 # ----------------------------
 module "iam" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//03_iam?ref=v1.30.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//03_iam?ref=v1.31.0"
 
   project     = var.project
   environment = var.environment
@@ -55,7 +55,7 @@ module "iam" {
 # Bastion
 # ----------------------------
 module "bastion" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//04_bastion?ref=v1.30.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//04_bastion?ref=v1.31.0"
 
   project     = var.project
   environment = var.environment
@@ -77,7 +77,7 @@ module "bastion" {
 # DB Tier
 # ----------------------------
 module "mongodb" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//05_mongodb?ref=v1.30.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//05_mongodb?ref=v1.31.0"
 
   project     = var.project
   environment = var.environment
@@ -97,7 +97,7 @@ module "mongodb" {
 }
 
 module "mysql" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//06_mysql?ref=v1.30.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//06_mysql?ref=v1.31.0"
 
   project     = var.project
   environment = var.environment
@@ -117,7 +117,7 @@ module "mysql" {
 }
 
 module "redis" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//07_redis?ref=v1.30.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//07_redis?ref=v1.31.0"
 
   project     = var.project
   environment = var.environment
@@ -137,7 +137,7 @@ module "redis" {
 }
 
 module "rabbitmq" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//08_rabbitmq?ref=v1.30.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//08_rabbitmq?ref=v1.31.0"
 
   project     = var.project
   environment = var.environment
@@ -160,7 +160,7 @@ module "rabbitmq" {
 # Internal ALB (APP tier)
 # ----------------------------
 module "internal_alb" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//09_internal-alb?ref=v1.30.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//09_internal-alb?ref=v1.31.0"
 
   project     = var.project
   environment = var.environment
@@ -179,7 +179,7 @@ module "internal_alb" {
 # Route53 Private Hosted Zone
 # ----------------------------
 module "route53_private" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//10_route53-private?ref=v1.30.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//10_route53-private?ref=v1.31.0"
 
   project     = var.project
   environment = var.environment
@@ -212,7 +212,7 @@ module "route53_private" {
 # APP Tier Services (Single shared app SG)
 # ----------------------------
 module "service_catalogue" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//11_service-catalogue?ref=v1.30.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//11_service-catalogue?ref=v1.31.0"
 
   project     = var.project
   environment = var.environment
@@ -243,7 +243,7 @@ module "service_catalogue" {
 }
 
 module "service_cart" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//12_service-cart?ref=v1.30.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//12_service-cart?ref=v1.31.0"
 
   project     = var.project
   environment = var.environment
@@ -274,7 +274,7 @@ module "service_cart" {
 }
 
 module "service_user" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//13_service-user?ref=v1.30.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//13_service-user?ref=v1.31.0"
 
   project     = var.project
   environment = var.environment
@@ -305,7 +305,7 @@ module "service_user" {
 }
 
 module "service_shipping" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//14_service-shipping?ref=v1.30.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//14_service-shipping?ref=v1.31.0"
 
   project     = var.project
   environment = var.environment
@@ -336,7 +336,7 @@ module "service_shipping" {
 }
 
 module "service_payment" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//15_service-payment?ref=v1.30.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//15_service-payment?ref=v1.31.0"
 
   project     = var.project
   environment = var.environment
@@ -367,7 +367,7 @@ module "service_payment" {
 }
 
 module "service_dispatch" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//16_service-dispatch?ref=v1.30.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//16_service-dispatch?ref=v1.31.0"
 
   project     = var.project
   environment = var.environment
@@ -392,4 +392,43 @@ module "service_dispatch" {
   iam_instance_profile_name          = module.iam.instance_profile_name
 
   depends_on = [module.bastion]
+}
+
+
+module "web_nginx" {
+   source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//17_web?ref=v1.31.0"
+
+  project     = var.project
+  environment = var.environment
+  common_tags = local.tags
+
+  # Network
+  vpc_id             = module.network.vpc_id
+  private_subnet_ids = module.network.private_subnet_ids
+
+  # Public ALB integration
+  public_alb_sg_id              = module.public_alb.alb_sg_id
+  public_alb_https_listener_arn = module.public_alb.https_listener_arn
+
+  # Golden AMI
+  ami_id        = var.nginx_ami_id
+  instance_type = var.nginx_instance_type
+
+  # Optional
+  key_name                  = var.nginx_key_name
+  iam_instance_profile_name = var.nginx_iam_instance_profile_name
+
+  # Scaling
+  desired_capacity = var.nginx_desired_capacity
+  min_size         = var.nginx_min_size
+  max_size         = var.nginx_max_size
+
+  # Listener rule (host-based)
+  enable_listener_rule   = true
+  hostnames              = var.nginx_hostnames
+  listener_rule_priority = var.nginx_listener_rule_priority
+
+  # App health
+  nginx_port         = 80
+  health_check_path  = "/health"
 }

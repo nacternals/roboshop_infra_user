@@ -146,44 +146,64 @@ output "db_private_ips" {
   }
 }
 
+############################
+# DNS / ALB outputs
+############################
+output "private_zone_id" {
+  value = module.route53_private.zone_id
+}
+
+output "internal_alb_dns_name" {
+  value = module.internal_alb.alb_dns_name
+}
+
+output "internal_alb_listener_arn" {
+  value = module.internal_alb.listener_arn
+}
+
+############################
+# App Tier Services outputs
+############################
+output "catalogue_asg_name" {
+  value = module.service_catalogue.asg_name
+}
+
+output "cart_asg_name" {
+  value = module.service_cart.asg_name
+}
+
+output "user_asg_name" {
+  value = module.service_user.asg_name
+}
+
+output "shipping_asg_name" {
+  value = module.service_shipping.asg_name
+}
+
+output "payment_asg_name" {
+  value = module.service_payment.asg_name
+}
+
+output "dispatch_asg_name" {
+  value = module.service_dispatch.asg_name
+}
+
 # ############################
-# # DNS / ALB outputs
+# # Web-Nginx outputs
 # ############################
-# output "private_zone_id" {
-#   value = module.route53_private.zone_id
-# }
+output "nginx_sg_id" {
+  value = module.web_nginx.nginx_sg_id
+}
 
-# output "internal_alb_dns_name" {
-#   value = module.internal_alb.alb_dns_name
-# }
+output "nginx_tg_arn" {
+  value = module.web_nginx.nginx_tg_arn
+}
 
-# output "internal_alb_listener_arn" {
-#   value = module.internal_alb.listener_arn
-# }
+output "nginx_asg_name" {
+  value = module.web_nginx.nginx_asg_name
+}
 
-# ############################
-# # App Tier Services outputs
-# ############################
-# output "catalogue_asg_name" {
-#   value = module.service_catalogue.asg_name
-# }
+output "nginx_listener_rule_arn" {
+  value = module.web_nginx.listener_rule_arn
+}
 
-# output "cart_asg_name" {
-#   value = module.service_cart.asg_name
-# }
-
-# output "user_asg_name" {
-#   value = module.service_user.asg_name
-# }
-
-# output "shipping_asg_name" {
-#   value = module.service_shipping.asg_name
-# }
-
-# output "payment_asg_name" {
-#   value = module.service_payment.asg_name
-# }
-
-# output "dispatch_asg_name" {
-#   value = module.service_dispatch.asg_name
-# }

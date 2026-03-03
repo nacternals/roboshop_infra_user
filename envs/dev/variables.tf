@@ -123,3 +123,56 @@ variable "user_ami_id" { type = string }
 variable "shipping_ami_id" { type = string }
 variable "payment_ami_id" { type = string }
 variable "dispatch_ami_id" { type = string }
+
+
+#Nginx Variables
+# Golden AMI for nginx
+variable "nginx_ami_id" {
+  type        = string
+  description = "Golden AMI ID for nginx web tier"
+}
+
+# Nginx sizing
+variable "nginx_instance_type" {
+  type    = string
+  default = "t3.micro"
+}
+
+variable "nginx_desired_capacity" {
+  type    = number
+  default = 2
+}
+
+variable "nginx_min_size" {
+  type    = number
+  default = 1
+}
+
+variable "nginx_max_size" {
+  type    = number
+  default = 4
+}
+
+# Optional
+variable "nginx_key_name" {
+  type    = string
+  default = null
+}
+
+variable "nginx_iam_instance_profile_name" {
+  type    = string
+  default = null
+}
+
+# Host-based routing on Public ALB HTTPS listener
+variable "nginx_hostnames" {
+  type        = list(string)
+  description = "Public host headers to route to nginx TG via Public ALB listener rule"
+  default     = ["dev.optimusprime.uno"]
+}
+
+variable "nginx_listener_rule_priority" {
+  type        = number
+  description = "Unique priority number on the Public ALB HTTPS listener"
+  default     = 100
+}

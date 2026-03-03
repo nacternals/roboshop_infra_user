@@ -161,9 +161,9 @@ output "internal_alb_listener_arn" {
   value = module.internal_alb.listener_arn
 }
 
-# ############################
-# # App Tier Services outputs
-# ############################
+############################
+# App Tier Services outputs
+############################
 output "catalogue_asg_name" {
   value = module.service_catalogue.asg_name
 }

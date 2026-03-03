@@ -1,8 +1,8 @@
-# # ----------------------------
+# ----------------------------
 # Network
 # ----------------------------
 module "network" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//01_network?ref=v1.25.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//01_network?ref=v1.26.0"
 
   project     = var.project
   environment = var.environment
@@ -21,7 +21,7 @@ module "network" {
 # Security (bastion + db + internal alb sgs)
 # ----------------------------
 module "security" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//02_security?ref=v1.25.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//02_security?ref=v1.26.0"
 
   project     = var.project
   environment = var.environment
@@ -37,7 +37,7 @@ module "security" {
 # IAM (instance profile)
 # ----------------------------
 module "iam" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//03_iam?ref=v1.25.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//03_iam?ref=v1.26.0"
 
   project     = var.project
   environment = var.environment
@@ -55,7 +55,7 @@ module "iam" {
 # Bastion
 # ----------------------------
 module "bastion" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//04_bastion?ref=v1.25.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//04_bastion?ref=v1.26.0"
 
   project     = var.project
   environment = var.environment
@@ -73,11 +73,11 @@ module "bastion" {
   ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
 }
 
-# # ----------------------------
-# # DB Tier
-# # ----------------------------
+# ----------------------------
+# DB Tier
+# ----------------------------
 module "mongodb" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//05_mongodb?ref=v1.25.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//05_mongodb?ref=v1.26.0"
 
   project     = var.project
   environment = var.environment
@@ -97,7 +97,7 @@ module "mongodb" {
 }
 
 module "mysql" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//06_mysql?ref=v1.25.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//06_mysql?ref=v1.26.0"
 
   project     = var.project
   environment = var.environment
@@ -117,7 +117,7 @@ module "mysql" {
 }
 
 module "redis" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//07_redis?ref=v1.25.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//07_redis?ref=v1.26.0"
 
   project     = var.project
   environment = var.environment
@@ -137,7 +137,7 @@ module "redis" {
 }
 
 module "rabbitmq" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//08_rabbitmq?ref=v1.25.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//08_rabbitmq?ref=v1.26.0"
 
   project     = var.project
   environment = var.environment
@@ -160,7 +160,7 @@ module "rabbitmq" {
 # Internal ALB (APP tier)
 # ----------------------------
 module "internal_alb" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//09_internal-alb?ref=v1.25.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//09_internal-alb?ref=v1.26.0"
 
   project     = var.project
   environment = var.environment
@@ -179,7 +179,7 @@ module "internal_alb" {
 # Route53 Private Hosted Zone
 # ----------------------------
 module "route53_private" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//10_route53-private?ref=v1.25.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//10_route53-private?ref=v1.26.0"
 
   project     = var.project
   environment = var.environment
@@ -203,18 +203,16 @@ module "route53_private" {
 
   enable_wildcard = false
 
-  # ✅ This is the important line
   db_records = local.db_records
 
   depends_on = [module.internal_alb]
 }
 
-# # ----------------------------
-# # APP Tier Services (Option A)
-# # Each module creates its own SG (no app_nodes_sg_id)
-# # ----------------------------
+# ----------------------------
+# APP Tier Services (Single shared app SG)
+# ----------------------------
 module "service_catalogue" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//11_service-catalogue?ref=v1.25.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//11_service-catalogue?ref=v1.26.0"
 
   project     = var.project
   environment = var.environment
@@ -223,9 +221,9 @@ module "service_catalogue" {
   vpc_id              = module.network.vpc_id
   private_app_subnets = module.network.private_app_subnet_ids
 
-  listener_arn  = module.internal_alb.listener_arn
-  alb_sg_id     = module.security.alb_internal_sg_id
-  bastion_sg_id = module.security.bastion_sg_id
+  listener_arn = module.internal_alb.listener_arn
+
+  app_sg_id = module.security.app_sg_id
 
   host_header   = "catalogue.${var.private_zone_name}"
   rule_priority = 10
@@ -241,12 +239,11 @@ module "service_catalogue" {
   ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
   iam_instance_profile_name          = module.iam.instance_profile_name
 
-
   depends_on = [module.internal_alb, module.bastion]
 }
 
 module "service_cart" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//12_service-cart?ref=v1.25.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//12_service-cart?ref=v1.26.0"
 
   project     = var.project
   environment = var.environment
@@ -255,9 +252,9 @@ module "service_cart" {
   vpc_id              = module.network.vpc_id
   private_app_subnets = module.network.private_app_subnet_ids
 
-  listener_arn  = module.internal_alb.listener_arn
-  alb_sg_id     = module.security.alb_internal_sg_id
-  bastion_sg_id = module.security.bastion_sg_id
+  listener_arn = module.internal_alb.listener_arn
+
+  app_sg_id = module.security.app_sg_id
 
   host_header   = "cart.${var.private_zone_name}"
   rule_priority = 20
@@ -277,7 +274,7 @@ module "service_cart" {
 }
 
 module "service_user" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//13_service-user?ref=v1.25.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//13_service-user?ref=v1.26.0"
 
   project     = var.project
   environment = var.environment
@@ -286,9 +283,9 @@ module "service_user" {
   vpc_id              = module.network.vpc_id
   private_app_subnets = module.network.private_app_subnet_ids
 
-  listener_arn  = module.internal_alb.listener_arn
-  alb_sg_id     = module.security.alb_internal_sg_id
-  bastion_sg_id = module.security.bastion_sg_id
+  listener_arn = module.internal_alb.listener_arn
+
+  app_sg_id = module.security.app_sg_id
 
   host_header   = "user.${var.private_zone_name}"
   rule_priority = 30
@@ -308,7 +305,7 @@ module "service_user" {
 }
 
 module "service_shipping" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//14_service-shipping?ref=v1.25.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//14_service-shipping?ref=v1.26.0"
 
   project     = var.project
   environment = var.environment
@@ -317,9 +314,9 @@ module "service_shipping" {
   vpc_id              = module.network.vpc_id
   private_app_subnets = module.network.private_app_subnet_ids
 
-  listener_arn  = module.internal_alb.listener_arn
-  alb_sg_id     = module.security.alb_internal_sg_id
-  bastion_sg_id = module.security.bastion_sg_id
+  listener_arn = module.internal_alb.listener_arn
+
+  app_sg_id = module.security.app_sg_id
 
   host_header   = "shipping.${var.private_zone_name}"
   rule_priority = 40
@@ -335,12 +332,11 @@ module "service_shipping" {
   ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
   iam_instance_profile_name          = module.iam.instance_profile_name
 
-
   depends_on = [module.internal_alb, module.bastion]
 }
 
 module "service_payment" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//15_service-payment?ref=v1.25.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//15_service-payment?ref=v1.26.0"
 
   project     = var.project
   environment = var.environment
@@ -349,9 +345,9 @@ module "service_payment" {
   vpc_id              = module.network.vpc_id
   private_app_subnets = module.network.private_app_subnet_ids
 
-  listener_arn  = module.internal_alb.listener_arn
-  alb_sg_id     = module.security.alb_internal_sg_id
-  bastion_sg_id = module.security.bastion_sg_id
+  listener_arn = module.internal_alb.listener_arn
+
+  app_sg_id = module.security.app_sg_id
 
   host_header   = "payment.${var.private_zone_name}"
   rule_priority = 50
@@ -371,7 +367,7 @@ module "service_payment" {
 }
 
 module "service_dispatch" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//16_service-dispatch?ref=v1.25.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//16_service-dispatch?ref=v1.26.0"
 
   project     = var.project
   environment = var.environment
@@ -380,9 +376,9 @@ module "service_dispatch" {
   vpc_id              = module.network.vpc_id
   private_app_subnets = module.network.private_app_subnet_ids
 
-  listener_arn  = module.internal_alb.listener_arn
-  alb_sg_id     = module.security.alb_internal_sg_id
-  bastion_sg_id = module.security.bastion_sg_id
+  listener_arn = module.internal_alb.listener_arn
+
+  app_sg_id = module.security.app_sg_id
 
   host_header   = "dispatch.${var.private_zone_name}"
   rule_priority = 60

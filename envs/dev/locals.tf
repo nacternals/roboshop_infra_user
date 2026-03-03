@@ -11,10 +11,10 @@ locals {
   # Where bastion will write pubkey, and DB modules will read pubkey from
   ansadmin_pubkey_ssm_parameter_name = "/${var.project}/${var.environment}/ansible/ansadmin_pubkey"
 
-  db_records = {
-    mongodb  = module.mongodb.private_ip
-    mysql    = module.mysql.private_ip
-    redis    = module.redis.private_ip
-    rabbitmq = module.rabbitmq.private_ip
-  }
+  # db_records = {
+  #   mongodb  = module.mongodb.private_ip
+  #   mysql    = module.mysql.private_ip
+  #   redis    = module.redis.private_ip
+  #   rabbitmq = module.rabbitmq.private_ip
+  # }
 }

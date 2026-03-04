@@ -18,5 +18,5 @@ locals {
     redis    = module.redis.private_ip
     rabbitmq = module.rabbitmq.private_ip
   }
-  
+
 }

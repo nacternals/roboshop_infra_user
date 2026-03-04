@@ -1,8 +1,12 @@
+############################################
+# main.tf (FINAL - issues fixed + proper order)
+############################################
+
 # ----------------------------
 # Network
 # ----------------------------
 module "network" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//01_network?ref=v1.31.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//01_network?ref=v1.34.0"
 
   project     = var.project
   environment = var.environment
@@ -21,7 +25,7 @@ module "network" {
 # Security (bastion + db + internal alb sgs)
 # ----------------------------
 module "security" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//02_security?ref=v1.31.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//02_security?ref=v1.34.0"
 
   project     = var.project
   environment = var.environment
@@ -37,7 +41,7 @@ module "security" {
 # IAM (instance profile)
 # ----------------------------
 module "iam" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//03_iam?ref=v1.31.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//03_iam?ref=v1.34.0"
 
   project     = var.project
   environment = var.environment
@@ -55,7 +59,7 @@ module "iam" {
 # Bastion
 # ----------------------------
 module "bastion" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//04_bastion?ref=v1.31.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//04_bastion?ref=v1.34.0"
 
   project     = var.project
   environment = var.environment
@@ -77,7 +81,7 @@ module "bastion" {
 # DB Tier
 # ----------------------------
 module "mongodb" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//05_mongodb?ref=v1.31.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//05_mongodb?ref=v1.34.0"
 
   project     = var.project
   environment = var.environment
@@ -97,7 +101,7 @@ module "mongodb" {
 }
 
 module "mysql" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//06_mysql?ref=v1.31.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//06_mysql?ref=v1.34.0"
 
   project     = var.project
   environment = var.environment
@@ -117,7 +121,7 @@ module "mysql" {
 }
 
 module "redis" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//07_redis?ref=v1.31.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//07_redis?ref=v1.34.0"
 
   project     = var.project
   environment = var.environment
@@ -137,7 +141,7 @@ module "redis" {
 }
 
 module "rabbitmq" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//08_rabbitmq?ref=v1.31.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//08_rabbitmq?ref=v1.34.0"
 
   project     = var.project
   environment = var.environment
@@ -160,7 +164,7 @@ module "rabbitmq" {
 # Internal ALB (APP tier)
 # ----------------------------
 module "internal_alb" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//09_internal-alb?ref=v1.31.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//09_internal-alb?ref=v1.34.0"
 
   project     = var.project
   environment = var.environment
@@ -179,7 +183,7 @@ module "internal_alb" {
 # Route53 Private Hosted Zone
 # ----------------------------
 module "route53_private" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//10_route53-private?ref=v1.31.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//10_route53-private?ref=v1.34.0"
 
   project     = var.project
   environment = var.environment
@@ -202,8 +206,7 @@ module "route53_private" {
   ]
 
   enable_wildcard = false
-
-  db_records = local.db_records
+  db_records      = local.db_records
 
   depends_on = [module.internal_alb]
 }
@@ -212,7 +215,7 @@ module "route53_private" {
 # APP Tier Services (Single shared app SG)
 # ----------------------------
 module "service_catalogue" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//11_service-catalogue?ref=v1.31.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//11_service-catalogue?ref=v1.34.0"
 
   project     = var.project
   environment = var.environment
@@ -222,8 +225,7 @@ module "service_catalogue" {
   private_app_subnets = module.network.private_app_subnet_ids
 
   listener_arn = module.internal_alb.listener_arn
-
-  app_sg_id = module.security.app_sg_id
+  app_sg_id    = module.security.app_sg_id
 
   host_header   = "catalogue.${var.private_zone_name}"
   rule_priority = 10
@@ -243,7 +245,7 @@ module "service_catalogue" {
 }
 
 module "service_cart" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//12_service-cart?ref=v1.31.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//12_service-cart?ref=v1.34.0"
 
   project     = var.project
   environment = var.environment
@@ -253,8 +255,7 @@ module "service_cart" {
   private_app_subnets = module.network.private_app_subnet_ids
 
   listener_arn = module.internal_alb.listener_arn
-
-  app_sg_id = module.security.app_sg_id
+  app_sg_id    = module.security.app_sg_id
 
   host_header   = "cart.${var.private_zone_name}"
   rule_priority = 20
@@ -274,7 +275,7 @@ module "service_cart" {
 }
 
 module "service_user" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//13_service-user?ref=v1.31.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//13_service-user?ref=v1.34.0"
 
   project     = var.project
   environment = var.environment
@@ -284,8 +285,7 @@ module "service_user" {
   private_app_subnets = module.network.private_app_subnet_ids
 
   listener_arn = module.internal_alb.listener_arn
-
-  app_sg_id = module.security.app_sg_id
+  app_sg_id    = module.security.app_sg_id
 
   host_header   = "user.${var.private_zone_name}"
   rule_priority = 30
@@ -305,7 +305,7 @@ module "service_user" {
 }
 
 module "service_shipping" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//14_service-shipping?ref=v1.31.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//14_service-shipping?ref=v1.34.0"
 
   project     = var.project
   environment = var.environment
@@ -315,8 +315,7 @@ module "service_shipping" {
   private_app_subnets = module.network.private_app_subnet_ids
 
   listener_arn = module.internal_alb.listener_arn
-
-  app_sg_id = module.security.app_sg_id
+  app_sg_id    = module.security.app_sg_id
 
   host_header   = "shipping.${var.private_zone_name}"
   rule_priority = 40
@@ -336,7 +335,7 @@ module "service_shipping" {
 }
 
 module "service_payment" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//15_service-payment?ref=v1.31.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//15_service-payment?ref=v1.34.0"
 
   project     = var.project
   environment = var.environment
@@ -346,8 +345,7 @@ module "service_payment" {
   private_app_subnets = module.network.private_app_subnet_ids
 
   listener_arn = module.internal_alb.listener_arn
-
-  app_sg_id = module.security.app_sg_id
+  app_sg_id    = module.security.app_sg_id
 
   host_header   = "payment.${var.private_zone_name}"
   rule_priority = 50
@@ -367,7 +365,7 @@ module "service_payment" {
 }
 
 module "service_dispatch" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//16_service-dispatch?ref=v1.31.0"
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//16_service-dispatch?ref=v1.34.0"
 
   project     = var.project
   environment = var.environment
@@ -384,7 +382,6 @@ module "service_dispatch" {
   max        = var.app_max
   cpu_target = var.cpu_target
 
-  # Required for dispatch -> RabbitMQ connectivity (Route53 private record)
   rabbitmq_host = "rabbitmq.${var.private_zone_name}"
   rabbitmq_port = 5672
 
@@ -394,17 +391,86 @@ module "service_dispatch" {
   depends_on = [module.bastion]
 }
 
-
-module "web_nginx" {
-   source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//17_web?ref=v1.31.0"
+# ----------------------------
+# ACM (Public cert for Public ALB)  ✅ Option A (separate module)
+# ----------------------------
+module "acm_public" {
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//20_acm-public?ref=v1.34.0"
 
   project     = var.project
   environment = var.environment
-  common_tags = local.tags
+  common_tags = local.common_tags
+
+  zone_name = var.public_zone_name
+
+  domain_name = "*.${var.public_zone_name}"
+  subject_alternative_names = [
+    var.public_zone_name,
+    "web.${var.public_zone_name}"
+  ]
+}
+
+# ----------------------------
+# Public ALB (Internet-facing)
+# ----------------------------
+module "public_alb" {
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//18_public-alb?ref=v1.34.0"
+
+  project     = var.project
+  environment = var.environment
+  common_tags = local.common_tags
+
+  vpc_id            = module.network.vpc_id
+  public_subnet_ids = module.network.public_subnet_ids
+
+  certificate_arn = module.acm_public.certificate_arn
+
+  enable_deletion_protection    = false
+  idle_timeout                  = 60
+  enable_http_to_https_redirect = true
+
+  access_logs_enabled = false
+
+  ingress_cidrs = ["0.0.0.0/0"]
+
+  depends_on = [module.network, module.acm_public]
+}
+
+# ----------------------------
+# Route53 Public Hosted Zone Records (web -> public ALB)
+# ----------------------------
+module "route53_public" {
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//19_route53-public?ref=v1.34.0"
+
+  project     = var.project
+  environment = var.environment
+  common_tags = local.common_tags
+
+  zone_name   = var.public_zone_name
+  create_zone = false
+
+  records         = ["web"]
+  enable_wildcard = false
+
+  alb_dns_name = module.public_alb.alb_dns_name
+  alb_zone_id  = module.public_alb.alb_zone_id
+
+  depends_on = [module.public_alb]
+}
+
+# ----------------------------
+# Web (Nginx ASG behind Public ALB)  ✅ FIXED
+# ----------------------------
+module "web_nginx" {
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//17_web?ref=v1.34.0"
+
+  project     = var.project
+  environment = var.environment
+  common_tags = local.common_tags
 
   # Network
   vpc_id             = module.network.vpc_id
-  private_subnet_ids = module.network.private_subnet_ids
+  private_subnet_ids = module.network.private_nginx_subnet_ids
 
   # Public ALB integration
   public_alb_sg_id              = module.public_alb.alb_sg_id
@@ -416,7 +482,7 @@ module "web_nginx" {
 
   # Optional
   key_name                  = var.nginx_key_name
-  iam_instance_profile_name = var.nginx_iam_instance_profile_name
+  iam_instance_profile_name = module.iam.instance_profile_name
 
   # Scaling
   desired_capacity = var.nginx_desired_capacity
@@ -429,66 +495,8 @@ module "web_nginx" {
   listener_rule_priority = var.nginx_listener_rule_priority
 
   # App health
-  nginx_port         = 80
-  health_check_path  = "/health"
-}
+  nginx_port        = 80
+  health_check_path = "/health"
 
-# ----------------------------
-# Public ALB (Internet-facing)
-# ----------------------------
-module "public_alb" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//18_public-alb?ref=v1.31.0"
-
-  project     = var.project
-  environment = var.environment
-  common_tags = local.common_tags
-
-  vpc_id            = module.network.vpc_id
-  public_subnet_ids = module.network.public_subnet_ids
-
-  # ACM cert for your public domain (ex: *.optimusprime.uno)
-  certificate_arn = var.public_alb_certificate_arn
-
-  # Optional settings
-  enable_deletion_protection      = false
-  idle_timeout                    = 60
-  enable_http_to_https_redirect   = true
-
-  # Optional access logs (keep false for now)
-  access_logs_enabled = false
-  # access_logs_enabled = true
-  # access_logs_bucket  = var.public_alb_access_logs_bucket
-  # access_logs_prefix  = "${var.project}/${var.environment}/public-alb"
-
-  # Ingress
-  ingress_cidrs = ["0.0.0.0/0"]
-
-  depends_on = [module.network]
-}
-
-
-# ----------------------------
-# Route53 Public Hosted Zone Records (web -> public ALB)
-# ----------------------------
-module "route53_public" {
-  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//19_route53-public?ref=v1.31.0"
-
-  project     = var.project
-  environment = var.environment
-  common_tags = local.common_tags
-
-  zone_name   = var.public_zone_name
-  create_zone = false  # set true ONLY if you want terraform to create the public hosted zone
-
-  # Create web.optimusprime.uno -> public ALB
-  records = ["web"]
-
-  # Optional:
-  # enable_wildcard = true  # *.optimusprime.uno -> public ALB
-  enable_wildcard = false
-
-  alb_dns_name = module.public_alb.alb_dns_name
-  alb_zone_id  = module.public_alb.alb_zone_id
-
-  depends_on = [module.public_alb]
+  depends_on = [module.public_alb, module.acm_public]
 }

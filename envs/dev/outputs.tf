@@ -147,7 +147,7 @@ output "db_private_ips" {
 }
 
 ############################
-# DNS / ALB outputs
+# Internal ALB outputs
 ############################
 output "private_zone_id" {
   value = module.route53_private.zone_id
@@ -188,10 +188,51 @@ output "dispatch_asg_name" {
   value = module.service_dispatch.asg_name
 }
 
-# ############################
-# # Web-Nginx outputs
-# ############################
-output "nginx_sg_id" {
+############################
+# ACM outputs
+############################
+output "public_acm_certificate_arn" {
+  value = module.acm_public.certificate_arn
+}
+
+############################
+# Public ALB outputs
+############################
+output "public_alb_dns_name" {
+  value = module.public_alb.alb_dns_name
+}
+
+output "public_alb_zone_id" {
+  value = module.public_alb.alb_zone_id
+}
+
+output "public_alb_https_listener_arn" {
+  value = module.public_alb.https_listener_arn
+}
+
+output "public_alb_sg_id" {
+  value = module.public_alb.alb_sg_id
+}
+
+############################
+# Route53 Public outputs
+############################
+output "public_zone_id" {
+  value = module.route53_public.zone_id
+}
+
+output "public_dns_web" {
+  value = "web.${var.public_zone_name}"
+}
+
+output "public_zone_name_servers" {
+  value = module.route53_public.name_servers
+}
+
+############################
+# Web-Nginx outputs
+############################
+output "web_nginx_sg_id" {
   value = module.web_nginx.nginx_sg_id
 }
 
@@ -205,40 +246,4 @@ output "nginx_asg_name" {
 
 output "nginx_listener_rule_arn" {
   value = module.web_nginx.listener_rule_arn
-}
-
-
-
-# ############################
-# # Public ALB outputs
-# ############################
-
-output "public_alb_dns_name" {
-  value = module.public_alb.alb_dns_name
-}
-
-output "public_alb_zone_id" {
-  value = module.public_alb.alb_zone_id
-}
-
-output "public_alb_https_listener_arn" {
-  value = module.public_alb.https_listener_arn
-}
-
-
-# ############################
-# # Route53 Public outputs
-# ############################
-
-
-output "public_zone_id" {
-  value = module.route53_public.zone_id
-}
-
-output "public_dns_web" {
-  value = "web.${var.public_zone_name}"
-}
-
-output "public_zone_name_servers" {
-  value = module.route53_public.name_servers
 }

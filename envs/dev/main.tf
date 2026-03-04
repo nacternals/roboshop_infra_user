@@ -432,3 +432,37 @@ module "web_nginx" {
   nginx_port         = 80
   health_check_path  = "/health"
 }
+
+# ----------------------------
+# Public ALB (Internet-facing)
+# ----------------------------
+module "public_alb" {
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//18_public-alb?ref=v1.31.0"
+
+  project     = var.project
+  environment = var.environment
+  common_tags = local.common_tags
+
+  vpc_id            = module.network.vpc_id
+  public_subnet_ids = module.network.public_subnet_ids
+
+  # ACM cert for your public domain (ex: *.optimusprime.uno)
+  certificate_arn = var.public_alb_certificate_arn
+
+  # Optional settings
+  enable_deletion_protection      = false
+  idle_timeout                    = 60
+  enable_http_to_https_redirect   = true
+
+  # Optional access logs (keep false for now)
+  access_logs_enabled = false
+  # access_logs_enabled = true
+  # access_logs_bucket  = var.public_alb_access_logs_bucket
+  # access_logs_prefix  = "${var.project}/${var.environment}/public-alb"
+
+  # Ingress
+  ingress_cidrs = ["0.0.0.0/0"]
+
+  depends_on = [module.network]
+}
+

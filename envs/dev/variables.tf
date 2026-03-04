@@ -176,3 +176,17 @@ variable "nginx_listener_rule_priority" {
   description = "Unique priority number on the Public ALB HTTPS listener"
   default     = 100
 }
+
+
+#public-alb vars
+variable "public_alb_certificate_arn" {
+  type        = string
+  description = "ACM certificate ARN for the public ALB HTTPS listener"
+}
+
+# Only needed if you enable access logs
+variable "public_alb_access_logs_bucket" {
+  type        = string
+  description = "S3 bucket name for public ALB access logs"
+  default     = null
+}

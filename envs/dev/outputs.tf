@@ -207,3 +207,20 @@ output "nginx_listener_rule_arn" {
   value = module.web_nginx.listener_rule_arn
 }
 
+
+
+# ############################
+# # Public ALB outputs
+# ############################
+
+output "public_alb_dns_name" {
+  value = module.public_alb.alb_dns_name
+}
+
+output "public_alb_zone_id" {
+  value = module.public_alb.alb_zone_id
+}
+
+output "public_alb_https_listener_arn" {
+  value = module.public_alb.https_listener_arn
+}

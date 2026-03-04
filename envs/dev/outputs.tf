@@ -224,3 +224,21 @@ output "public_alb_zone_id" {
 output "public_alb_https_listener_arn" {
   value = module.public_alb.https_listener_arn
 }
+
+
+# ############################
+# # Route53 Public outputs
+# ############################
+
+
+output "public_zone_id" {
+  value = module.route53_public.zone_id
+}
+
+output "public_dns_web" {
+  value = "web.${var.public_zone_name}"
+}
+
+output "public_zone_name_servers" {
+  value = module.route53_public.name_servers
+}

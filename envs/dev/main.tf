@@ -466,3 +466,29 @@ module "public_alb" {
   depends_on = [module.network]
 }
 
+
+# ----------------------------
+# Route53 Public Hosted Zone Records (web -> public ALB)
+# ----------------------------
+module "route53_public" {
+  source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//19_route53-public?ref=v1.31.0"
+
+  project     = var.project
+  environment = var.environment
+  common_tags = local.common_tags
+
+  zone_name   = var.public_zone_name
+  create_zone = false  # set true ONLY if you want terraform to create the public hosted zone
+
+  # Create web.optimusprime.uno -> public ALB
+  records = ["web"]
+
+  # Optional:
+  # enable_wildcard = true  # *.optimusprime.uno -> public ALB
+  enable_wildcard = false
+
+  alb_dns_name = module.public_alb.alb_dns_name
+  alb_zone_id  = module.public_alb.alb_zone_id
+
+  depends_on = [module.public_alb]
+}

@@ -190,3 +190,9 @@ variable "public_alb_access_logs_bucket" {
   description = "S3 bucket name for public ALB access logs"
   default     = null
 }
+
+#route53-public variables
+variable "public_zone_name" {
+  type        = string
+  description = "Public hosted zone name (e.g., optimusprime.uno)"
+}

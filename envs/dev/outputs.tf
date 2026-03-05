@@ -211,7 +211,7 @@ output "public_alb_https_listener_arn" {
 }
 
 output "public_alb_sg_id" {
-  value = module.public_alb.alb_sg_id
+  value = module.security.alb_public_sg_id
 }
 
 ############################

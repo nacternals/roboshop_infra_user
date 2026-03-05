@@ -132,6 +132,22 @@ variable "cpu_target" {
   default     = 60
 }
 
+variable "health_check_type" {
+  description = "ASG health check type. Use EC2 for bootstrap, ELB for production."
+  type        = string
+}
+
+variable "health_check_grace_period" {
+  description = "Seconds to ignore health checks after instance launch."
+  type        = number
+}
+
+variable "wait_for_capacity_timeout" {
+  description = "How long Terraform waits for ASG capacity (e.g., 20m)."
+  type        = string
+}
+
+
 ############################
 # Microservice AMIs (golden)
 ############################

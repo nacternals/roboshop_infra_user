@@ -68,3 +68,7 @@ Thumbs.db
 ##################################
 
 *.log
+
+*.tfstate
+*.tfstate.*
+.terraform/

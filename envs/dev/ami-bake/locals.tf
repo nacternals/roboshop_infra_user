@@ -20,7 +20,7 @@ locals {
     payment   = "app"
     dispatch  = "app"
 
-    nginx     = "web"
+    nginx = "web"
   }
 
 }

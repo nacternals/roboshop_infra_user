@@ -1,5 +1,5 @@
 module "ami_bake" {
-  source = "../../../roboshop_terraform_modules/21_ami-bake"
+  source = "../../../../roboshop_terraform_modules/21_ami-bake"
 
   project                = var.project
   environment            = var.environment

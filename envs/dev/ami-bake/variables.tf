@@ -17,3 +17,7 @@ variable "ami_version" {
 variable "component_instance_ids" {
   type = map(string)
 }
+
+variable "build_date" {
+  type = string
+}

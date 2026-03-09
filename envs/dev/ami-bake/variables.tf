@@ -14,10 +14,10 @@ variable "ami_version" {
   type = string
 }
 
-variable "component_instance_ids" {
-  type = map(string)
-}
-
 variable "build_date" {
   type = string
+}
+
+variable "stop_before_ami_components" {
+  type = set(string)
 }

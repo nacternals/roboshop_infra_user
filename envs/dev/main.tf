@@ -505,8 +505,8 @@ module "web_nginx" {
   instance_type = var.nginx_instance_type
 
   # Optional
-  key_name                  = var.nginx_key_name
-  iam_instance_profile_name = module.iam.instance_profile_name
+  key_name                           = var.nginx_key_name
+  iam_instance_profile_name          = module.iam.instance_profile_name
   ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
 
   # Scaling

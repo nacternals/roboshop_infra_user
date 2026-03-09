@@ -1,5 +1,5 @@
 ############################################
-# main.tf (FINAL - issues fixed + proper order)
+# main.tf (FINAL - AMIs read from SSM Parameter Store)
 ############################################
 
 # ----------------------------
@@ -87,7 +87,7 @@ module "mongodb" {
   environment = var.environment
   common_tags = local.common_tags
 
-  ami_id        = var.mongodb_ami_id
+  ami_id        = data.aws_ssm_parameter.mongodb_ami.value
   instance_type = var.db_instance_type
   key_name      = var.db_key_name
 
@@ -107,7 +107,7 @@ module "mysql" {
   environment = var.environment
   common_tags = local.common_tags
 
-  ami_id        = var.mysql_ami_id
+  ami_id        = data.aws_ssm_parameter.mysql_ami.value
   instance_type = var.db_instance_type
   key_name      = var.db_key_name
 
@@ -127,7 +127,7 @@ module "redis" {
   environment = var.environment
   common_tags = local.common_tags
 
-  ami_id        = var.redis_ami_id
+  ami_id        = data.aws_ssm_parameter.redis_ami.value
   instance_type = var.db_instance_type
   key_name      = var.db_key_name
 
@@ -147,7 +147,7 @@ module "rabbitmq" {
   environment = var.environment
   common_tags = local.common_tags
 
-  ami_id        = var.rabbitmq_ami_id
+  ami_id        = data.aws_ssm_parameter.rabbitmq_ami.value
   instance_type = var.db_instance_type
   key_name      = var.db_key_name
 
@@ -230,7 +230,7 @@ module "service_catalogue" {
   host_header   = "catalogue.${var.private_zone_name}"
   rule_priority = 10
 
-  ami_id        = var.catalogue_ami_id
+  ami_id        = data.aws_ssm_parameter.catalogue_ami.value
   instance_type = var.app_instance_type
 
   desired                   = var.app_desired
@@ -263,7 +263,7 @@ module "service_cart" {
   host_header   = "cart.${var.private_zone_name}"
   rule_priority = 20
 
-  ami_id        = var.cart_ami_id
+  ami_id        = data.aws_ssm_parameter.cart_ami.value
   instance_type = var.app_instance_type
 
   desired                   = var.app_desired
@@ -296,7 +296,7 @@ module "service_user" {
   host_header   = "user.${var.private_zone_name}"
   rule_priority = 30
 
-  ami_id        = var.user_ami_id
+  ami_id        = data.aws_ssm_parameter.user_ami.value
   instance_type = var.app_instance_type
 
   desired                   = var.app_desired
@@ -329,7 +329,7 @@ module "service_shipping" {
   host_header   = "shipping.${var.private_zone_name}"
   rule_priority = 40
 
-  ami_id        = var.shipping_ami_id
+  ami_id        = data.aws_ssm_parameter.shipping_ami.value
   instance_type = var.app_instance_type
 
   desired                   = var.app_desired
@@ -362,7 +362,7 @@ module "service_payment" {
   host_header   = "payment.${var.private_zone_name}"
   rule_priority = 50
 
-  ami_id        = var.payment_ami_id
+  ami_id        = data.aws_ssm_parameter.payment_ami.value
   instance_type = var.app_instance_type
 
   desired                   = var.app_desired
@@ -389,7 +389,7 @@ module "service_dispatch" {
   private_app_subnets = module.network.private_app_subnet_ids
   app_sg_id           = module.security.app_sg_id
 
-  ami_id        = var.dispatch_ami_id
+  ami_id        = data.aws_ssm_parameter.dispatch_ami.value
   instance_type = var.app_instance_type
 
   desired                   = var.app_desired
@@ -410,7 +410,7 @@ module "service_dispatch" {
 }
 
 # ----------------------------
-# ACM (Public cert for Public ALB)  ✅ Option A (separate module)
+# ACM (Public cert for Public ALB)
 # ----------------------------
 module "acm_public" {
   source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//20_acm-public?ref=v1.49.0"
@@ -427,8 +427,6 @@ module "acm_public" {
     "web.dev.${var.public_zone_name}"
   ]
 }
-
-
 
 # ----------------------------
 # Public ALB (Internet-facing)
@@ -485,7 +483,7 @@ module "route53_public" {
 }
 
 # ----------------------------
-# Web (Nginx ASG behind Public ALB)  ✅ FIXED
+# Web (Nginx ASG behind Public ALB)
 # ----------------------------
 module "web_nginx" {
   source = "git::ssh://git@github.com/nacternals/roboshop_terraform_modules.git//17_web?ref=v1.49.0"
@@ -503,13 +501,12 @@ module "web_nginx" {
   public_alb_https_listener_arn = module.public_alb.https_listener_arn
 
   # Golden AMI
-  ami_id        = var.nginx_ami_id
+  ami_id        = data.aws_ssm_parameter.nginx_ami.value
   instance_type = var.nginx_instance_type
 
   # Optional
   key_name                  = var.nginx_key_name
   iam_instance_profile_name = module.iam.instance_profile_name
-  # ✅ required for userdata (SSM key injection)
   ansadmin_pubkey_ssm_parameter_name = local.ansadmin_pubkey_ssm_parameter_name
 
   # Scaling

@@ -90,11 +90,6 @@ variable "db_instance_type" {
 
 variable "db_key_name" { type = string }
 
-variable "mongodb_ami_id" { type = string }
-variable "mysql_ami_id" { type = string }
-variable "redis_ami_id" { type = string }
-variable "rabbitmq_ami_id" { type = string }
-
 ############################
 # Route53 Private Zone
 ############################
@@ -147,25 +142,9 @@ variable "wait_for_capacity_timeout" {
   type        = string
 }
 
-
-############################
-# Microservice AMIs (golden)
-############################
-variable "catalogue_ami_id" { type = string }
-variable "cart_ami_id" { type = string }
-variable "user_ami_id" { type = string }
-variable "shipping_ami_id" { type = string }
-variable "payment_ami_id" { type = string }
-variable "dispatch_ami_id" { type = string }
-
 ############################
 # Nginx (Web tier)
 ############################
-variable "nginx_ami_id" {
-  type        = string
-  description = "Golden AMI ID for nginx web tier"
-}
-
 variable "nginx_instance_type" {
   type    = string
   default = "t3.micro"
@@ -191,8 +170,6 @@ variable "nginx_key_name" {
   default = null
 }
 
-# Keep this var (in case you want separate profile later),
-# but in main.tf we used module.iam.instance_profile_name
 variable "nginx_iam_instance_profile_name" {
   type    = string
   default = null

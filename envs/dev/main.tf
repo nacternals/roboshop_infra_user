@@ -87,7 +87,8 @@ module "mongodb" {
   environment = var.environment
   common_tags = local.common_tags
 
-  ami_id        = data.aws_ssm_parameter.mongodb_ami.value
+  #  ami_id        = data.aws_ssm_parameter.mongodb_ami.value
+  ami_id        = "ami-0b4f379183e5706b9"
   instance_type = var.db_instance_type
   key_name      = var.db_key_name
 
@@ -107,7 +108,8 @@ module "mysql" {
   environment = var.environment
   common_tags = local.common_tags
 
-  ami_id        = data.aws_ssm_parameter.mysql_ami.value
+  #  ami_id        = data.aws_ssm_parameter.mysql_ami.value
+  ami_id        = "ami-0b4f379183e5706b9"
   instance_type = var.db_instance_type
   key_name      = var.db_key_name
 
@@ -127,7 +129,8 @@ module "redis" {
   environment = var.environment
   common_tags = local.common_tags
 
-  ami_id        = data.aws_ssm_parameter.redis_ami.value
+  #  ami_id        = data.aws_ssm_parameter.redis_ami.value
+  ami_id        = "ami-0b4f379183e5706b9"
   instance_type = var.db_instance_type
   key_name      = var.db_key_name
 
@@ -147,7 +150,8 @@ module "rabbitmq" {
   environment = var.environment
   common_tags = local.common_tags
 
-  ami_id        = data.aws_ssm_parameter.rabbitmq_ami.value
+  #  ami_id        = data.aws_ssm_parameter.rabbitmq_ami.value
+  ami_id        = "ami-0b4f379183e5706b9"
   instance_type = var.db_instance_type
   key_name      = var.db_key_name
 
@@ -230,7 +234,8 @@ module "service_catalogue" {
   host_header   = "catalogue.${var.private_zone_name}"
   rule_priority = 10
 
-  ami_id        = data.aws_ssm_parameter.catalogue_ami.value
+  #  ami_id        = data.aws_ssm_parameter.catalogue_ami.value
+  ami_id        = "ami-0b4f379183e5706b9"
   instance_type = var.app_instance_type
 
   desired                   = var.app_desired
@@ -263,7 +268,8 @@ module "service_cart" {
   host_header   = "cart.${var.private_zone_name}"
   rule_priority = 20
 
-  ami_id        = data.aws_ssm_parameter.cart_ami.value
+  #  ami_id        = data.aws_ssm_parameter.cart_ami.value
+  ami_id        = "ami-0b4f379183e5706b9"
   instance_type = var.app_instance_type
 
   desired                   = var.app_desired
@@ -296,7 +302,8 @@ module "service_user" {
   host_header   = "user.${var.private_zone_name}"
   rule_priority = 30
 
-  ami_id        = data.aws_ssm_parameter.user_ami.value
+  #  ami_id        = data.aws_ssm_parameter.user_ami.value
+  ami_id        = "ami-0b4f379183e5706b9"
   instance_type = var.app_instance_type
 
   desired                   = var.app_desired
@@ -329,7 +336,8 @@ module "service_shipping" {
   host_header   = "shipping.${var.private_zone_name}"
   rule_priority = 40
 
-  ami_id        = data.aws_ssm_parameter.shipping_ami.value
+  #  ami_id        = data.aws_ssm_parameter.shipping_ami.value
+  ami_id        = "ami-0b4f379183e5706b9"
   instance_type = var.app_instance_type
 
   desired                   = var.app_desired
@@ -362,7 +370,8 @@ module "service_payment" {
   host_header   = "payment.${var.private_zone_name}"
   rule_priority = 50
 
-  ami_id        = data.aws_ssm_parameter.payment_ami.value
+  #  ami_id        = data.aws_ssm_parameter.payment_ami.value
+  ami_id        = "ami-0b4f379183e5706b9"
   instance_type = var.app_instance_type
 
   desired                   = var.app_desired
@@ -389,7 +398,8 @@ module "service_dispatch" {
   private_app_subnets = module.network.private_app_subnet_ids
   app_sg_id           = module.security.app_sg_id
 
-  ami_id        = data.aws_ssm_parameter.dispatch_ami.value
+  #  ami_id        = data.aws_ssm_parameter.dispatch_ami.value
+  ami_id        = "ami-0b4f379183e5706b9"
   instance_type = var.app_instance_type
 
   desired                   = var.app_desired
@@ -501,7 +511,8 @@ module "web_nginx" {
   public_alb_https_listener_arn = module.public_alb.https_listener_arn
 
   # Golden AMI
-  ami_id        = data.aws_ssm_parameter.nginx_ami.value
+  #  ami_id        = data.aws_ssm_parameter.nginx_ami.value
+  ami_id        = "ami-0b4f379183e5706b9"
   instance_type = var.nginx_instance_type
 
   # Optional

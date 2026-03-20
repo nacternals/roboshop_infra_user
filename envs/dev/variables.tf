@@ -146,7 +146,7 @@ variable "wait_for_capacity_timeout" {
 # Nginx (Web tier)
 ############################
 variable "nginx_instance_type" {
-  type    = string
+  type = string
 
 }
 

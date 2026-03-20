@@ -7,6 +7,7 @@ data "aws_availability_zones" "available" {
 }
 
 
+
 # data "aws_ssm_parameter" "catalogue_ami" {
 #   name = "/roboshop/dev/ami/catalogue"
 # }

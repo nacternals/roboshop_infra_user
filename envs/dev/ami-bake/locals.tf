@@ -32,4 +32,8 @@ locals {
     dispatch  = data.aws_instances.dispatch.ids[0]
     nginx     = data.aws_instances.nginx.ids[0]
   }
+
+  build_date = formatdate("DDMMYYYY-hhmmss", timestamp())
+
+
 }

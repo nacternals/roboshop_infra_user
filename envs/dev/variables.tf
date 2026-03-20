@@ -147,7 +147,7 @@ variable "wait_for_capacity_timeout" {
 ############################
 variable "nginx_instance_type" {
   type    = string
-  default = "t3.micro"
+
 }
 
 variable "nginx_desired_capacity" {

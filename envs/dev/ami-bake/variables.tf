@@ -15,7 +15,8 @@ variable "ami_version" {
 }
 
 variable "build_date" {
-  type = string
+  type    = string
+  default = null
 }
 
 variable "stop_before_ami_components" {

@@ -4,9 +4,9 @@ module "ami_bake" {
   project                    = var.project
   environment                = var.environment
   ami_version                = var.ami_version
-  build_date                 = local.build_date
+  build_date                 = local.effective_build_date
   common_tags                = local.common_tags
-  component_instance_ids     = local.component_instance_ids
+  component_instance_ids     = local.valid_component_instance_ids
   component_tiers            = local.component_tiers
   stop_before_ami_components = var.stop_before_ami_components
 }

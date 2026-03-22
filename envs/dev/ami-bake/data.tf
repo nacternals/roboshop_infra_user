@@ -104,7 +104,7 @@ data "aws_instances" "catalogue" {
 
   filter {
     name   = "instance-state-name"
-    values = ["running"]
+    values = ["running", "stopped"]
   }
 }
 
@@ -126,7 +126,7 @@ data "aws_instances" "user" {
 
   filter {
     name   = "instance-state-name"
-    values = ["running"]
+    values = ["running", "stopped"]
   }
 }
 
@@ -148,7 +148,7 @@ data "aws_instances" "cart" {
 
   filter {
     name   = "instance-state-name"
-    values = ["running"]
+    values = ["running", "stopped"]
   }
 }
 
@@ -170,7 +170,7 @@ data "aws_instances" "shipping" {
 
   filter {
     name   = "instance-state-name"
-    values = ["running"]
+    values = ["running", "stopped"]
   }
 }
 
@@ -192,7 +192,7 @@ data "aws_instances" "payment" {
 
   filter {
     name   = "instance-state-name"
-    values = ["running"]
+    values = ["running", "stopped"]
   }
 }
 
@@ -214,7 +214,7 @@ data "aws_instances" "dispatch" {
 
   filter {
     name   = "instance-state-name"
-    values = ["running"]
+    values = ["running", "stopped"]
   }
 }
 
@@ -236,6 +236,6 @@ data "aws_instances" "nginx" {
 
   filter {
     name   = "instance-state-name"
-    values = ["running"]
+    values = ["running", "stopped"]
   }
 }

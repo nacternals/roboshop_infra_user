@@ -1,5 +1,6 @@
-bucket         = "roboshop-terraform-state-files"
-key            = "dev/ami-bake/terraform.tfstate"
+bucket         = "roboshop-tf-state"
+key            = "dev/ami-bake/main.tfstate"
+dynamodb_table = "roboshop-tf-lock"
 region         = "us-east-1"
-dynamodb_table = "roboshop-terraform-lock-files"
 encrypt        = true
+
